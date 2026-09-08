@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>oddball — AI-native creative studio</title>
+<meta name="description" content="oddball은 현실의 프레임 안에 비현실 한 컷으로 브랜드의 언어를 담아내는 AI-Native Creative Studio입니다." />
+<link rel="icon" href="img/oddball-logo-black.svg" />
+<link rel="stylesheet" href="https://use.typekit.net/dbj4evq.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --accent:#def1fc;
+    --ink:#0a0a0a;
+    --paper:#ffffff;
+    --soft:#6e6e6e;
+    --softer:#9a9a9a;
+    --line-soft:#e5e5e5;
+    --dark:#0a0a0a;
+    --on-dark:#efece6;
+    --on-dark-2:#9a9794;
+    --on-dark-3:#5e5b57;
+    --mono:'josefin-sans',ui-sans-serif,system-ui,sans-serif;
+    --serif:'josefin-sans',ui-sans-serif,system-ui,sans-serif;
+    --ease: cubic-bezier(.4,.0,.2,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html,body{overflow-x:hidden}
+
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
+
+  /* ============================================================
+     page transitions
+     ============================================================ */
+  .screen{
+    position:fixed;inset:0;
+    opacity:0;pointer-events:none;
+    transition:opacity 900ms var(--ease);
+  }
+  .screen.active{opacity:1;pointer-events:auto}
+  .screen[data-page="work"], .screen[data-page="about"]{background:var(--paper)}
+
+  /* ============================================================
+     shared chrome
+     ============================================================ */
+  .topnav{
+    position:absolute;left:0;right:0;top:0;z-index:30;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:0 32px;
+    min-height:66px;
+    font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .topnav .slug{color:var(--on-dark-2)}
+  .topnav .meta{color:var(--on-dark-2);text-align:right}
+  .topnav nav{
+    display:flex;gap:32px;
+    position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+  }
+  .topnav nav a{
+    color:var(--on-dark-2);transition:color 500ms var(--ease), opacity 500ms var(--ease);
+  }
+  .topnav nav a:hover{color:var(--on-dark)}
+  .topnav nav a.active{color:var(--on-dark)}
+
+  .screen[data-page="work"] .topnav,
+  .screen[data-page="about"] .topnav{
+    background:var(--paper);
+    position:fixed;
+  }
+  .screen[data-page="work"] .topnav .slug,
+  .screen[data-page="about"] .topnav .slug,
+  .screen[data-page="work"] .topnav .meta,
+  .screen[data-page="about"] .topnav .meta{color:var(--ink)}
+  .screen[data-page="work"] .topnav nav a,
+  .screen[data-page="about"] .topnav nav a{color:var(--ink);opacity:.45}
+  .screen[data-page="work"] .topnav nav a:hover,
+  .screen[data-page="about"] .topnav nav a:hover{opacity:1}
+  .screen[data-page="work"] .topnav nav a.active,
+  .screen[data-page="about"] .topnav nav a.active{opacity:1;position:relative}
+  .screen[data-page="work"] .topnav .word,
+  .screen[data-page="about"] .topnav .word{
+    font-family:var(--serif);font-style:italic;font-size:22px;line-height:1;letter-spacing:-.01em;text-transform:none;
+  }
+  .topnav .word{display:flex;align-items:center}
+  .screen[data-page="about"] .about-strip,
+  .screen[data-page="about"] .about-body,
+  .screen[data-page="about"] .about-body *,
+  .screen[data-page="about"] .topnav nav,
+  .screen[data-page="about"] .topnav .pill,
+  .screen[data-page="about"] .topnav .slug,
+  .screen[data-page="about"] .topnav .meta{font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
+  .topnav .word img{display:block;height:19px;width:auto}
+
+  /* ============================================================
+     WORK
+     ============================================================ */
+  .work-body{
+    position:absolute;left:0;right:0;top:112px;bottom:0;
+    overflow:hidden;
+  }
+  .work-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 360ms var(--ease)}
+  .work-view.active{opacity:1;pointer-events:auto}
+
+  /* ---------- Client view: vertical case reel ---------- */
+  .client-reel{
+    position:absolute;inset:0;
+    overflow-y:auto;
+  }
+  .client-reel::-webkit-scrollbar{width:0;height:0}
+  .client-reel{scrollbar-width:none}
+
+  .case-pair{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:0;
+    margin-bottom:96px;
+  }
+  .case-pair:first-child{margin-top:40px}
+  .case{display:flex;flex-direction:column;min-width:0}
+  .case .case-img{
+    position:relative;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    background:#f5f5f5;
+  }
+  .case .case-img image-slot{width:100%;height:100%;display:block;--is-radius:0}
+  .case .case-cap{
+    display:grid;
+    grid-template-columns:auto auto 1fr auto;
+    align-items:baseline;
+    column-gap:14px;
+    padding:18px 24px 0;
+  }
+  .case .case-cap .num{
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);
+  }
+  .case .case-cap .title{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(24px, 2vw, 32px);
+    line-height:1;letter-spacing:-.01em;color:var(--ink);
+  }
+  .case .case-cap .client{
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  }
+  .case .case-cap .type{
+    font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);
+    text-align:right;
+  }
+
+
+  /* PORTFOLIO CSS — kept for later use
+  /* ---------- Portfolio view: index + sticky preview ---------- */
+  .portfolio{
+    position:absolute;inset:0;
+    display:grid;grid-template-columns:1fr 38vw;
+  }
+  .work-list-wrap{
+    overflow-y:auto;
+    padding:32px 36px 56px;
+  }
+  .work-list-wrap::-webkit-scrollbar{width:0;height:0}
+  .work-list-wrap{scrollbar-width:none}
+
+  .work-list .head, .work-list .row{
+    display:grid;
+    grid-template-columns:80px 1.6fr 1fr 110px;
+    gap:32px;
+    padding:18px 0;
+    border-bottom:1px solid var(--ink);
+    align-items:baseline;
+  }
+  .work-list .head{
+    font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);
+    padding:10px 0;
+  }
+  .work-list .row{
+    cursor:pointer;
+    transition:background 320ms var(--ease), padding 320ms var(--ease);
+  }
+  .work-list .row .y{font-family:var(--mono);font-size:14px;color:var(--ink);transition:color 320ms var(--ease)}
+  .work-list .row .p{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(24px, 2.6vw, 36px);
+    line-height:1;letter-spacing:-.01em;color:var(--ink);
+    transition:transform 320ms var(--ease);
+    transform-origin:left center;
+  }
+  .work-list .row .c{font-family:var(--mono);font-size:14px;color:var(--ink)}
+  .work-list .row .t{font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-align:right}
+  .work-list .row:hover, .work-list .row.active{
+    background:#f5f5f5;
+    padding-left:14px;padding-right:14px;
+  }
+  .work-list .row:hover .p, .work-list .row.active .p{
+    transform:translateX(2px);
+  }
+
+  .work-preview{
+    position:relative;
+    border-left:1px solid var(--ink);
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .work-preview .stack{position:absolute;inset:36px 36px 80px 36px}
+  .work-preview .slot{
+    position:absolute;inset:0;opacity:0;transition:opacity 480ms var(--ease);
+  }
+  .work-preview .slot.active{opacity:1}
+  .work-preview .slot image-slot{width:100%;height:100%;display:block;--is-radius:0}
+  .work-preview .empty{
+    position:absolute;inset:0;display:grid;place-items:center;
+    font-family:var(--serif);font-style:italic;font-size:clamp(44px, 5.4vw, 80px);color:#dcdcdc;letter-spacing:-.01em;
+  }
+  .work-preview .meta{
+    position:absolute;left:36px;right:36px;bottom:36px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  }
+  .work-preview .meta .title{font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.005em;text-transform:none;color:var(--ink)}
+  .work-preview .meta .num{color:var(--soft)}
+
+
+  /* ============================================================
+     CONTACT
+     ============================================================ */
+  .screen[data-page="contact"]{background:var(--paper)}
+  .screen[data-page="contact"] .topnav{background:var(--paper);position:fixed}
+  .screen[data-page="contact"] .topnav .slug,
+  .screen[data-page="contact"] .topnav .meta{color:var(--ink)}
+  .screen[data-page="contact"] .topnav nav a{color:var(--ink);opacity:.45}
+  .screen[data-page="contact"] .topnav nav a:hover,
+  .screen[data-page="contact"] .topnav nav a.active{opacity:1}
+  .screen[data-page="contact"] .topnav .word{font-family:var(--serif);font-style:italic;font-size:22px;line-height:1;text-transform:none}
+  .screen[data-page="contact"] .contact-body,
+  .screen[data-page="contact"] .contact-body *,
+  .screen[data-page="contact"] .topnav nav,
+  .screen[data-page="contact"] .topnav .pill,
+  .screen[data-page="contact"] .topnav .slug,
+  .screen[data-page="contact"] .topnav .meta{font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
+  .contact-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;padding:88px 36px 48px}
+  .contact-body::-webkit-scrollbar{width:0;height:0}
+  .contact-body{scrollbar-width:none}
+  .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px 80px;max-width:1400px}
+  .contact-grid h2{margin:0 0 28px;font-size:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+  .contact-grid .blk + .blk{margin-top:26px}
+  .contact-grid p{margin:0;font-size:16px;line-height:1.62;color:#3a3a3a}
+  .contact-grid .em{color:var(--ink)}
+  .contact-grid a{color:var(--ink);text-decoration:none;transition:opacity 260ms var(--ease)}
+  .contact-grid a:hover{opacity:.5}
+  .contact-grid h5{margin:0 0 8px;font-size:16px;font-weight:400;color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+  .contact-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-size:16px;line-height:1.62}
+  .contact-foot{margin-top:72px;padding-top:18px;display:flex;justify-content:center;text-align:center;line-height:1.35;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+
+  /* ============================================================
+     ABOUT
+     ============================================================ */
+  .about-strip{
+    position:fixed;left:0;right:0;top:66px;height:78px;z-index:5;
+    display:flex;gap:1px;background:var(--ink);overflow:hidden;
+  }
+  .about-strip image-slot{flex:1 0 7.2%;min-width:0;height:100%;display:block;--is-radius:0;border:none}
+
+  .about-body{
+    position:absolute;left:0;right:0;top:66px;bottom:0;
+    padding:48px 28px 36px;
+    overflow-y:auto;
+  }
+  .about-body::-webkit-scrollbar{width:0;height:0}
+  .about-body{scrollbar-width:none}
+
+  .about-cols{
+    display:flex;flex-direction:column;gap:28px;
+    max-width:1600px;
+  }
+  .about-cols p{margin:0;max-width:62ch;font-size:clamp(16px,1.5vw,20px);line-height:1.5;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
+  .about-foot{
+    margin-top:56px;padding-top:18px;
+    display:flex;justify-content:center;text-align:center;line-height:1.35;
+    font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);
+  }
+
+  /* mode pill on About (top-right replaces the meta) */
+  .pill{
+    border:1px solid var(--ink);border-radius:14px;padding:3px 12px;
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:14px;letter-spacing:.02em;text-transform:none;
+    color:var(--ink);
+  }
+  .pill .x{opacity:.45}
+
+
+  /* ============================================================
+     WORK — dark editorial masthead
+     ============================================================ */
+  .screen[data-page="work"]{background:#0a0a0a;color:#fff}
+  .screen[data-page="work"] .topnav{background:#0a0a0a}
+  .screen[data-page="work"] .topnav .word img{filter:invert(1)}
+  .screen[data-page="work"] .topnav .slug,
+  .screen[data-page="work"] .topnav .meta{color:rgba(255,255,255,.55)}
+  .screen[data-page="work"] .topnav nav a{color:#fff;opacity:.5}
+  .screen[data-page="work"] .topnav nav a:hover,
+  .screen[data-page="work"] .topnav nav a.active{opacity:1}
+
+  .topnav .social{display:flex;align-items:center;gap:18px}
+  .topnav .social a{display:flex;color:#ffffff;opacity:1;transition:opacity 240ms var(--ease)}
+  .topnav .social a:hover{opacity:.6}
+  .topnav .social svg{width:24px;height:24px;display:block}
+
+  .work-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;overflow-x:hidden}
+  .work-body::-webkit-scrollbar{width:0;height:0}
+  .work-body{scrollbar-width:none}
+
+  .work-intro{padding:72px 36px 0;display:flex;justify-content:center}
+  .work-intro .stmt{margin:0;text-align:center;font-size:clamp(28px,3vw,48px);line-height:1.14;letter-spacing:-.01em;color:#fff}
+  .work-rule{height:1px;background:rgba(255,255,255,.32);margin:64px 36px 30px}
+
+  .screen[data-page="work"] .work-view{position:static;display:none;opacity:1;pointer-events:auto}
+  .screen[data-page="work"] .work-view.active{display:block}
+  .screen[data-page="work"] .client-reel{position:static;overflow:visible}
+
+  .case-grid{column-count:3;column-gap:24px;padding:0 36px 40px}
+  .case-grid .case{break-inside:avoid;margin:0 0 52px;display:block}
+  .screen[data-page="work"] .case[data-ar="16/9"] .case-img{aspect-ratio:16/9}
+  .screen[data-page="work"] .case[data-ar="4/5"] .case-img{aspect-ratio:4/5}
+  .screen[data-page="work"] .case[data-ar="9/16"] .case-img{aspect-ratio:9/16}
+  @media (max-width:1000px){.case-grid{column-count:2}}
+  @media (max-width:640px){.case-grid{column-count:1}}
+  .screen[data-page="work"] .case-pair{display:contents}
+  .screen[data-page="work"] .case .case-img{aspect-ratio:3/4;background:#151515}
+  .screen[data-page="work"] .case .case-cap{
+    display:grid;grid-template-columns:auto 1fr;column-gap:10px;row-gap:6px;
+    padding:16px 0 0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+    text-transform:none;letter-spacing:0;
+  }
+  .screen[data-page="work"] .case .case-cap .desc{grid-column:1/-1;font-size:18px;font-weight:600;color:#fff;line-height:1.35;text-wrap:pretty}
+  .screen[data-page="work"] .case .case-cap .client{grid-column:1/-1;font-size:15px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.5}
+  .screen[data-page="work"] .case:hover .case-cap .desc{color:var(--accent)}
+
+  .screen[data-page="work"] .portfolio{position:static;min-height:60vh;align-items:start}
+  .screen[data-page="work"] .work-list-wrap{overflow:visible;padding:0 36px 56px 36px}
+  .screen[data-page="work"] .work-list .head{color:rgba(255,255,255,.45);border-bottom-color:rgba(255,255,255,.28)}
+  .screen[data-page="work"] .work-list .row{border-bottom-color:rgba(255,255,255,.28)}
+  .screen[data-page="work"] .work-list .row .y,
+  .screen[data-page="work"] .work-list .row .p,
+  .screen[data-page="work"] .work-list .row .c,
+  .screen[data-page="work"] .work-list .row .t{color:#fff}
+  .screen[data-page="work"] .work-list .row:hover,
+  .screen[data-page="work"] .work-list .row.active{background:rgba(255,255,255,.07)}
+  .screen[data-page="work"] .work-preview{position:sticky;top:0;height:calc(100vh - 66px);border-left:1px solid rgba(255,255,255,.28);background:#0a0a0a}
+  .screen[data-page="work"] .work-preview .empty{color:rgba(255,255,255,.14)}
+  .screen[data-page="work"] .work-preview .meta{color:#fff}
+  .screen[data-page="work"] .work-preview .meta .title{color:#fff}
+  .screen[data-page="work"] .work-preview .meta .num{color:rgba(255,255,255,.5)}
+
+
+  */
+
+  /* ============================================================
+     ACCENT — #def1fc
+     ============================================================ */
+  ::selection{background:var(--accent);color:#0a0a0a}
+  a:hover{color:inherit}
+
+  /* nav: active + hover pick up the tint */
+  .screen[data-page="work"] .topnav nav a:hover,
+  .screen[data-page="work"] .topnav nav a.active{color:var(--accent);opacity:1}
+  .screen[data-page="about"] .topnav nav a:hover,
+  .screen[data-page="about"] .topnav nav a.active,
+  .screen[data-page="contact"] .topnav nav a:hover,
+  .screen[data-page="contact"] .topnav nav a.active{opacity:1;color:#0a0a0a}
+  .topnav .social a:hover{color:var(--accent);opacity:1}
+  .screen[data-page="about"] .topnav .social a:hover,
+  .screen[data-page="contact"] .topnav .social a:hover{color:#0a0a0a;opacity:1}
+
+  /* work: statement highlight + tabs */
+  .work-intro .stmt em{font-style:normal;color:var(--accent)}
+  .work-rule{background:linear-gradient(90deg,var(--accent) 0 22%,rgba(255,255,255,.28) 22% 100%)}
+  .screen[data-page="work"] .work-list .row:hover,
+  .screen[data-page="work"] .work-list .row.active{background:rgba(222,241,252,.12)}
+  .screen[data-page="work"] .work-list .row:hover .t,
+  .screen[data-page="work"] .work-list .row.active .t{color:var(--accent)}
+
+  /* light pages: link + heading accents */
+  .about-cols p.en{color:#3a3a3a}
+  .about-cols p.en::first-line{color:#3a3a3a}
+  .contact-grid a:hover{opacity:.5}
+
+  /* contact page sits on the accent */
+  .screen[data-page="contact"]{background:var(--accent)}
+  .screen[data-page="contact"] .topnav{background:var(--accent)}
+  .screen[data-page="contact"] .contact-grid p{color:#1d2b31}
+  .about-foot,.contact-foot{position:relative}
+
+
+  /* ============================================================
+     CASE DETAIL (1 depth)
+     ============================================================ */
+  .screen[data-page^="w"]:not([data-page="work"]){background:#0a0a0a;color:#fff}
+  .screen[data-page^="w"]:not([data-page="work"]) .topnav{background:#0a0a0a}
+  .screen[data-page^="w"]:not([data-page="work"]) .topnav .word img{filter:invert(1)}
+  .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a{color:#fff;opacity:.5}
+  .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a:hover,
+  .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a.active{color:var(--accent);opacity:1}
+
+  .case-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;overflow-x:hidden;padding:0 36px 0}
+  .case-body::-webkit-scrollbar{width:0;height:0}
+  .case-body{scrollbar-width:none}
+
+  .case-back{display:inline-flex;gap:10px;align-items:center;margin:32px 0 0;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color 240ms var(--ease)}
+  .case-back:hover{color:var(--accent)}
+
+  .case-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:start;padding:48px 0 34px}
+  .case-head h1{margin:0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(26px,2.8vw,44px);font-weight:600;line-height:1.16;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
+  .case-facts{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 32px;font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
+  .case-facts dt{margin:0 0 4px;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .case-facts dd{margin:0;font-size:16px;line-height:1.5;color:#fff}
+
+  .case-hero{aspect-ratio:16/9;background:#151515}
+  .case-hero image-slot{width:100%;height:100%;display:block;--is-radius:0}
+
+  .case-note{max-width:62ch;margin:44px 0 0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(16px,1.25vw,19px);line-height:1.68;color:rgba(255,255,255,.82);text-wrap:pretty}
+
+  .case-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:56px 0 0}
+  .case-stack .cs{background:#151515}
+  .case-stack .cs image-slot{width:100%;height:100%;display:block;--is-radius:0}
+  .case-stack .half{aspect-ratio:4/5}
+  .case-stack .full{grid-column:1/-1;aspect-ratio:16/9}
+
+  .case-next{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 32px;align-items:baseline;margin:88px 0 0;padding:26px 0 0;border-top:1px solid rgba(255,255,255,.22);transition:border-color 260ms var(--ease)}
+  .case-next:hover{border-top-color:var(--accent)}
+  .case-next .lbl{grid-column:1/-1;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .case-next .ttl{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(20px,1.8vw,30px);font-weight:600;line-height:1.25;color:#fff;transition:color 260ms var(--ease)}
+  .case-next:hover .ttl{color:var(--accent)}
+  .case-next .cl{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:16px;color:rgba(255,255,255,.55);white-space:nowrap}
+
+  .case-foot{margin:96px 0 0;padding:18px 0 40px;display:flex;justify-content:center;text-align:center;line-height:1.35;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+  .ph{width:100%;height:100%;object-fit:contain;display:block;background:#0f0f0f}
+  .screen[data-page="work"] .case[data-ar="1/1"] .case-img{aspect-ratio:1/1}
+  .screen[data-page="work"] .case[data-ar="3/4"] .case-img{aspect-ratio:3/4}
+  .case-hero.port{aspect-ratio:3/4;max-width:min(560px,42vw);background:#151515}
+  .case-stack.trio{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .case-stack.trio .cs,.case-stack.duo .cs{aspect-ratio:3/4}
+  .case-stack.duo{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:900px){.case-hero.port{max-width:100%}.case-stack.trio{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .case-hero.sq{aspect-ratio:1/1;max-width:min(720px,54vw);background:#151515}
+  .case-stack.sq{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .case-stack.sq .cs{aspect-ratio:1/1}
+  @media (max-width:900px){.case-hero.sq{max-width:100%}}
+
+  /* youtube facade */
+  .yt{position:relative;width:100%;height:100%;background:#151515;overflow:hidden;cursor:pointer}
+  .yt img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 320ms var(--ease),transform 600ms var(--ease)}
+  .yt.vertical img{object-fit:cover;object-position:center}
+  .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .ytplay{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:56px;height:56px;border-radius:50%;
+    display:grid;place-items:center;
+    background:rgba(10,10,10,.55);color:#fff;
+    backdrop-filter:blur(2px);
+    transition:background 260ms var(--ease),color 260ms var(--ease),transform 260ms var(--ease);
+  }
+  .ytplay svg{width:26px;height:26px;margin-left:2px}
+  .yt:hover .ytplay{background:var(--accent);color:#0a0a0a}
+  .yt:hover img{opacity:.82}
+  .yt.playing{cursor:default}
+  .yt.playing img,.yt.playing .ytplay{display:none}
+  .case-hero .yt.vertical{max-width:min(420px,50vw);margin:0 auto}
+  .screen[data-page^="w"]:not([data-page="work"]) .case-hero:has(.yt.vertical){aspect-ratio:auto;background:transparent}
+  .case-hero .yt.vertical{aspect-ratio:9/16}
+  .case-stack .cs.vert{aspect-ratio:9/16}
+  .case-grid .yt .ytplay{display:none}
+
+  /* clickable cards on the work index */
+  .case-link{display:flex;flex-direction:column;min-width:0;color:inherit}
+
+  @media (max-width:900px){
+    .case-head{grid-template-columns:minmax(0,1fr);align-items:start;gap:28px}
+    .case-stack{grid-template-columns:minmax(0,1fr)}
+    .case-stack .full{aspect-ratio:16/9}
+  }
+
+  /* ============================================================
+     accessibility / motion
+     ============================================================ */
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     WORK
+     ============================================================ -->
+<section class="screen active" data-page="work" data-screen-label="Work">
+  <header class="topnav">
+    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="work-body">
+
+    <div class="work-intro">
+      <p class="stmt">oddball is an AI creative studio building<br />brand imagination into <em>film, image and identity.</em></p>
+    </div>
+
+    <div class="work-rule"></div>
+
+    <!-- ---- CLIENT VIEW: vertical case reel ---- -->
+    <div class="work-view active" data-view="client">
+      <div class="client-reel" id="client-reel">
+        <div class="case-grid">
+          <a class="case case-link" href="#w1" data-link="w1" data-ar="16/9">
+            <div class="case-img"><img class="ph" src="img/wells-mimi.png" alt="교원웰스 미미 정수기" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">미미 정수기 AI 광고</span>
+              <span class="client">교원웰스</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w2" data-link="w2" data-ar="16/9">
+            <div class="case-img"><div class="yt cover" data-yt="_5ihA4PAfoo"><img src="https://i.ytimg.com/vi/_5ihA4PAfoo/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_5ihA4PAfoo/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+            <div class="case-cap">
+              <span class="desc">스파원 비데 AI 광고 2종</span>
+              <span class="client">교원웰스</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w3" data-link="w3" data-ar="1/1">
+            <div class="case-img"><img class="ph" src="img/deliel-sns-01.png" alt="Deliel" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">단백질 쉐이크 SNS 광고</span>
+              <span class="client">Deliel</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w4" data-link="w4" data-ar="9/16">
+            <div class="case-img"><div class="yt cover" data-yt="_GAsXp5Kp1Q"><img src="https://i.ytimg.com/vi/_GAsXp5Kp1Q/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_GAsXp5Kp1Q/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+            <div class="case-cap">
+              <span class="desc">오거스타 소파 숏폼</span>
+              <span class="client">Dauning</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w5" data-link="w5" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/sweetch-01.png" alt="SWEETCH" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">Glossy Black Polka Dot 제품 영상</span>
+              <span class="client">SWEETCH</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w6" data-link="w6" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/rareraw-01.png" alt="rareraw" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">Home Helper 영상</span>
+              <span class="client">rareraw</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#w7" data-link="w7" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/deliel-p04.png" alt="Deliel" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">단백질 쉐이크 브랜드 모션/이미지</span>
+              <span class="client">Deliel</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO VIEW ~~ kept for later use
+    <div class="work-view" data-view="portfolio">
+      <div class="portfolio">
+        <div class="work-list-wrap">
+          <div class="work-list" id="work-list">
+            <div class="head"><span>Year</span><span>Project</span><span>Context</span><span style="text-align:right">Type</span></div>
+            <div class="row" data-idx="0"><span class="y">2025</span><span class="p">Mirage</span><span class="c">Self-initiated</span><span class="t">Identity</span></div>
+            <div class="row" data-idx="1"><span class="y">2025</span><span class="p">After Hours</span><span class="c">Personal</span><span class="t">Image</span></div>
+            <div class="row" data-idx="2"><span class="y">2025</span><span class="p">Slow Channel</span><span class="c">R&amp;D</span><span class="t">Film</span></div>
+            <div class="row" data-idx="3"><span class="y">2024</span><span class="p">Paperweight</span><span class="c">Self-initiated</span><span class="t">Image</span></div>
+            <div class="row" data-idx="4"><span class="y">2024</span><span class="p">Atrium</span><span class="c">Studio</span><span class="t">Identity</span></div>
+            <div class="row" data-idx="5"><span class="y">2024</span><span class="p">Hours</span><span class="c">Personal</span><span class="t">Film</span></div>
+            <div class="row" data-idx="6"><span class="y">2024</span><span class="p">Folded Light</span><span class="c">R&amp;D</span><span class="t">Image</span></div>
+            <div class="row" data-idx="7"><span class="y">2023</span><span class="p">Field Notes</span><span class="c">Self-initiated</span><span class="t">Identity</span></div>
+            <div class="row" data-idx="8"><span class="y">2023</span><span class="p">Half Light</span><span class="c">Personal</span><span class="t">Film</span></div>
+            <div class="row" data-idx="9"><span class="y">2023</span><span class="p">Slow Object</span><span class="c">R&amp;D</span><span class="t">Image</span></div>
+          </div>
+        </div>
+
+        <aside class="work-preview" id="work-preview">
+          <div class="stack">
+            <div class="empty" id="work-empty">oddball</div>
+            <div class="slot" data-slot="0"><image-slot shape="rounded" radius="0" id="p-0" placeholder="Mirage"></image-slot></div>
+            <div class="slot" data-slot="1"><image-slot shape="rounded" radius="0" id="p-1" placeholder="After Hours"></image-slot></div>
+            <div class="slot" data-slot="2"><image-slot shape="rounded" radius="0" id="p-2" placeholder="Slow Channel"></image-slot></div>
+            <div class="slot" data-slot="3"><image-slot shape="rounded" radius="0" id="p-3" placeholder="Paperweight"></image-slot></div>
+            <div class="slot" data-slot="4"><image-slot shape="rounded" radius="0" id="p-4" placeholder="Atrium"></image-slot></div>
+            <div class="slot" data-slot="5"><image-slot shape="rounded" radius="0" id="p-5" placeholder="Hours"></image-slot></div>
+            <div class="slot" data-slot="6"><image-slot shape="rounded" radius="0" id="p-6" placeholder="Folded Light"></image-slot></div>
+            <div class="slot" data-slot="7"><image-slot shape="rounded" radius="0" id="p-7" placeholder="Field Notes"></image-slot></div>
+            <div class="slot" data-slot="8"><image-slot shape="rounded" radius="0" id="p-8" placeholder="Half Light"></image-slot></div>
+            <div class="slot" data-slot="9"><image-slot shape="rounded" radius="0" id="p-9" placeholder="Slow Object"></image-slot></div>
+          </div>
+          <div class="meta">
+            <span class="title" id="work-title"></span>
+            <span class="num" id="work-num">— ⁄ 10</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+
+    -->
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section class="screen" data-page="about" data-screen-label="About">
+  <header class="topnav">
+    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <nav>
+      <a href="#work" data-link="work">Work</a>
+      <a href="#about" class="active" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+
+  <div class="about-body">
+    <div class="about-cols">
+      <p class="en">oddball is an AI-native creative studio that captures a brand’s voice with greater creativity and precision — framing a single surreal moment within the real. We plan and produce a wide range of content, from short-form social media to brand campaigns and advertising, delivering each brand’s intended message with nuance and authenticity.</p>
+
+      <p>oddball은 ‘현실의 프레임 안에 비현실 한 컷’으로 브랜드의 언어를 보다 창의적이고, 정교하게 담아내는 AI-Native Creative Studio입니다.</p>
+      <p>SNS 숏폼, 브랜드 캠페인, 광고까지 다양한 종류의 콘텐츠를 기획 및 제작하며, 브랜드가 전달하고자 하는 메시지를 더 섬세하고 자연스럽게 전달합니다.</p>
+    </div>
+
+    <div class="about-foot">
+      <span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="screen" data-page="contact" data-screen-label="Contact">
+  <header class="topnav">
+    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <nav>
+      <a href="#work" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" class="active" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="contact-body">
+    <div class="contact-grid">
+      <div>
+        <h2>Project inquiries</h2>
+        <div class="blk">
+          <p>프로젝트 의뢰는 이메일로 받고 있습니다.<br />아래의 메일 주소로 프로젝트 내용, 일정 등 정보를 알려주시기 바랍니다.<br />검토 후 회신 드리겠습니다.</p>
+        </div>
+        <div class="blk">
+          <p>We accept project requests via email.<br />Please send the project details and timeline to the email address below.<br />We will review them and get back to you.</p>
+        </div>
+        <div class="blk">
+          <p class="em"><a href="mailto:yewon.mun@oddball.works">yewon.mun@oddball.works</a><br /><a href="tel:+821086233918">+82 (0)10 8623 3918</a></p>
+          <p class="em" style="margin-top:14px"><a href="mailto:yejin.mun@oddball.works">yejin.mun@oddball.works</a><br /><a href="tel:+821067003918">+82 (0)10 6700 3918</a></p>
+        </div>
+      </div>
+
+      <div>
+        <h2>General</h2>
+        <div class="blk">
+          <h5>Social</h5>
+          <ul>
+            <li><a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener">instagram.com/we.are.oddball</a></li>
+            <li><a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener">threads.com/@we.are.oddball</a></li>
+          </ul>
+        </div>
+        <div class="blk">
+          <h5>Office Hours</h5>
+          <ul>
+            <li>Monday — Friday</li>
+            <li>10:00 – 19:00 KST</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-foot">
+      <span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 01 — 교원웰스 / 미미 정수기 AI 광고
+     ============================================================ -->
+<section class="screen" data-page="w1" data-screen-label="Case 01">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>미미 정수기 AI 광고</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>교원웰스</dd></div>
+        <div><dt>Date</dt><dd>2026.05</dd></div>
+        <div><dt>Scope</dt><dd>AI Film</dd></div>
+        <div><dt>Deliverables</dt><dd>광고 영상 1종</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero"><div class="yt" data-yt="1KJoUxtOycg"><img src="https://i.ytimg.com/vi/1KJoUxtOycg/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/1KJoUxtOycg/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+
+    <p class="case-note">정수기를 생활의 배경이 아니라 하루의 리듬으로 다룬 광고. 실제 주방의 프레임 안에 비현실적인 물의 순간을 한 컷 심어, 제품의 기능을 설명하지 않고 감각으로 전달했습니다.</p>
+
+
+    <a class="case-next" href="#w2" data-link="w2">
+      <span class="lbl">Next project</span>
+      <span class="ttl">스파원 비데 AI 광고 2종</span>
+      <span class="cl">교원웰스 <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 02 — 교원웰스 / 스파원 비데 AI 광고 2종
+     ============================================================ -->
+<section class="screen" data-page="w2" data-screen-label="Case 02">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>스파원 비데 AI 광고 2종</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>교원웰스</dd></div>
+        <div><dt>Date</dt><dd>2026.05</dd></div>
+        <div><dt>Scope</dt><dd>AI Film</dd></div>
+        <div><dt>Deliverables</dt><dd>광고 영상 2종</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero"><div class="yt" data-yt="_5ihA4PAfoo"><img src="https://i.ytimg.com/vi/_5ihA4PAfoo/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_5ihA4PAfoo/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+
+    <p class="case-note">위생과 편안함이라는 두 축을 각각 다른 톤의 영상으로 분리해 제작. 동일한 조명 언어를 유지하면서 두 편이 한 캠페인으로 읽히도록 설계했습니다.</p>
+
+    <div class="case-stack duo">
+      <div class="cs vert"><div class="yt vertical" data-yt="d_s168FFQY8"><img src="https://i.ytimg.com/vi/d_s168FFQY8/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/d_s168FFQY8/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+      <div class="cs vert"><img class="ph" src="img/wells-infinity.png" alt="스파원 비데 — 인피니티 수류" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w3" data-link="w3">
+      <span class="lbl">Next project</span>
+      <span class="ttl">단백질 쉐이크 SNS 광고</span>
+      <span class="cl">Deliel <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 03 — Deliel / 인스타그램 브랜드 이미지
+     ============================================================ -->
+<section class="screen" data-page="w3" data-screen-label="Case 03">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>단백질 쉐이크 SNS 광고</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>Deliel</dd></div>
+        <div><dt>Date</dt><dd>2026.05</dd></div>
+        <div><dt>Scope</dt><dd>SNS 광고</dd></div>
+        <div><dt>Deliverables</dt><dd>브랜드 이미지 세트</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero sq"><img class="ph" src="img/deliel-sns-01.png" alt="Deliel 브랜드 이미지 01" loading="lazy" /></div>
+
+    <p class="case-note">피드 단위로 읽히는 브랜드 이미지 세트. 제품 컷과 무드 컷을 교차 배치해, 스크롤 안에서 브랜드의 색과 질감이 먼저 기억되게 했습니다.</p>
+
+    <div class="case-stack sq">
+      <div class="cs"><img class="ph" src="img/deliel-sns-02.png" alt="Deliel 브랜드 이미지 02" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-sns-03.png" alt="Deliel 브랜드 이미지 03" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-sns-04.png" alt="Deliel 브랜드 이미지 04" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-sns-05.png" alt="Deliel 브랜드 이미지 05" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w4" data-link="w4">
+      <span class="lbl">Next project</span>
+      <span class="ttl">오거스타 소파 숏폼</span>
+      <span class="cl">Dauning <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 04 — Dauning / 오거스타 소파 숏폼
+     ============================================================ -->
+<section class="screen" data-page="w4" data-screen-label="Case 04">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>오거스타 소파 숏폼</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>Dauning</dd></div>
+        <div><dt>Date</dt><dd>2026.04</dd></div>
+        <div><dt>Scope</dt><dd>Short-form Film</dd></div>
+        <div><dt>Deliverables</dt><dd>숏폼 영상</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero"><div class="yt vertical" data-yt="_GAsXp5Kp1Q"><img src="https://i.ytimg.com/vi/_GAsXp5Kp1Q/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_GAsXp5Kp1Q/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+
+    <p class="case-note">소파의 형태와 앉는 시간을 함께 보여주는 숏폼. 카메라가 머무는 속도를 제품의 편안함과 같은 속도로 맞췄습니다.</p>
+
+    <div class="case-stack trio">
+      <div class="cs"><img class="ph" src="img/dauning-01.png" alt="오거스타 소파 01" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/dauning-02.png" alt="오거스타 소파 02" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/dauning-03.png" alt="오거스타 소파 03" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w5" data-link="w5">
+      <span class="lbl">Next project</span>
+      <span class="ttl">Glossy Black Polka Dot 제품 영상</span>
+      <span class="cl">SWEETCH <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 05 — SWEETCH / Glossy Black Polka Dot 제품 영상
+     ============================================================ -->
+<section class="screen" data-page="w5" data-screen-label="Case 05">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>Glossy Black Polka Dot 제품 영상</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>SWEETCH</dd></div>
+        <div><dt>Date</dt><dd>2026.04</dd></div>
+        <div><dt>Scope</dt><dd>Product Film</dd></div>
+        <div><dt>Deliverables</dt><dd>제품 영상</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero port"><img class="ph" src="img/sweetch-01.png" alt="SWEETCH — Glossy Black Polka Dot 01" loading="lazy" /></div>
+
+    <p class="case-note">광택과 패턴이 부딪히는 표면을 주인공으로 둔 제품 영상. 반사광의 궤적을 컷의 리듬으로 사용했습니다.</p>
+
+    <div class="case-stack duo">
+      <div class="cs"><img class="ph" src="img/sweetch-02.png" alt="SWEETCH 02" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/sweetch-03.png" alt="SWEETCH 03" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w6" data-link="w6">
+      <span class="lbl">Next project</span>
+      <span class="ttl">Home Helper 영상</span>
+      <span class="cl">rareraw <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 06 — rareraw / 홈헬퍼 영상
+     ============================================================ -->
+<section class="screen" data-page="w6" data-screen-label="Case 06">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>Home Helper 영상</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>rareraw</dd></div>
+        <div><dt>Date</dt><dd>2026.01 – 2026.02</dd></div>
+        <div><dt>Scope</dt><dd>Brand Film</dd></div>
+        <div><dt>Deliverables</dt><dd>브랜드 영상</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero port"><img class="ph" src="img/rareraw-01.png" alt="Home Helper 01" loading="lazy" /></div>
+
+    <p class="case-note">집안일을 대신하는 서비스를 사람의 손짓으로 설명한 영상. 기능 나열 대신 하루가 가벼워지는 장면을 순서대로 놓았습니다.</p>
+
+    <div class="case-stack duo">
+      <div class="cs"><img class="ph" src="img/rareraw-02.png" alt="Home Helper 02" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/rareraw-03.png" alt="Home Helper 03" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w7" data-link="w7">
+      <span class="lbl">Next project</span>
+      <span class="ttl">단백질 쉐이크 브랜드 모션/이미지</span>
+      <span class="cl">Deliel <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASE 07 — Deliel / 단백질 쉐이크 브랜드 모션/이미지
+     ============================================================ -->
+<section class="screen" data-page="w7" data-screen-label="Case 07">
+  <header class="topnav">
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
+    <nav>
+      <a href="#work" class="active" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <span class="social">
+      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+    </span>
+  </header>
+
+  <div class="case-body">
+    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
+
+    <div class="case-head">
+      <h1>단백질 쉐이크 브랜드 모션/이미지</h1>
+      <dl class="case-facts">
+        <div><dt>Client</dt><dd>Deliel</dd></div>
+        <div><dt>Date</dt><dd>2026.01</dd></div>
+        <div><dt>Scope</dt><dd>Motion, Brand Image</dd></div>
+        <div><dt>Deliverables</dt><dd>모션 그래픽, 이미지 세트</dd></div>
+      </dl>
+    </div>
+
+    <div class="case-hero port"><img class="ph" src="img/deliel-p04.png" alt="Deliel 단백질 쉐이크 04" loading="lazy" /></div>
+
+    <p class="case-note">쉐이크의 밀도와 움직임을 브랜드의 성격으로 번역한 작업. 모션과 스틸을 같은 팔레트로 묶어 온채널에서 일관되게 쓰이도록 정리했습니다.</p>
+
+    <div class="case-stack trio">
+      <div class="cs"><img class="ph" src="img/deliel-p01.png" alt="Deliel 단백질 쉐이크 01" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-p02.png" alt="Deliel 단백질 쉐이크 02" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-p03.png" alt="Deliel 단백질 쉐이크 03" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-p05.png" alt="Deliel 단백질 쉐이크 05" loading="lazy" /></div>
+      <div class="cs"><img class="ph" src="img/deliel-p06.png" alt="Deliel 단백질 쉐이크 06" loading="lazy" /></div>
+    </div>
+
+    <a class="case-next" href="#w1" data-link="w1">
+      <span class="lbl">Next project</span>
+      <span class="ttl">미미 정수기 AI 광고</span>
+      <span class="cl">교원웰스 <span class="ar">→</span></span>
+    </a>
+
+    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
+  </div>
+</section>
+
+<script>
+  // ---------- youtube facades ----------
+  document.addEventListener('click', e => {
+    const box = e.target.closest('.yt');
+    if(!box || box.classList.contains('playing')) return;
+    const card = box.closest('.case-link');
+    if(card) return; // index cards navigate instead of playing
+    e.preventDefault();
+    const id = box.dataset.yt;
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen = true;
+    box.appendChild(f);
+    box.classList.add('playing');
+  });
+
+  // ---------- routing ----------
+  const screens = document.querySelectorAll('.screen');
+  function go(page){
+    const pages = ['work','about','contact'].concat(Array.from(screens).map(s=>s.dataset.page));
+    if(!pages.includes(page)) page = 'work';
+    screens.forEach(s => s.classList.toggle('active', s.dataset.page === page));
+    document.querySelectorAll('[data-link]').forEach(a => {
+      a.classList.toggle('active', a.dataset.link === page);
+    });
+    if(location.hash !== '#' + page) history.replaceState(null, '', '#' + page);
+    const tgt = document.querySelector('.screen[data-page="' + page + '"]');
+    const sc = tgt && tgt.querySelector('.case-body, .work-body, .about-body, .contact-body');
+    if(sc) sc.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('[data-link]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      go(a.dataset.link);
+    });
+  });
+  window.addEventListener('hashchange', () => go(location.hash.replace('#','')));
+  if(location.hash) go(location.hash.replace('#',''));
+
+  /* PORTFOLIO — kept for later use
+  // ---------- work hover preview ----------
+  const rows = document.querySelectorAll('#work-list .row');
+  const slots = document.querySelectorAll('#work-preview .slot');
+  const empty = document.getElementById('work-empty');
+  const title = document.getElementById('work-title');
+  const num = document.getElementById('work-num');
+  function activateRow(i){
+    rows.forEach(r => r.classList.toggle('active', +r.dataset.idx === i));
+    slots.forEach(s => s.classList.toggle('active', +s.dataset.slot === i));
+    if(i === -1){
+      empty.style.opacity = 1;
+      title.textContent = '';
+      num.textContent = '— ⁄ 10';
+    } else {
+      empty.style.opacity = 0;
+      const r = document.querySelector(`#work-list .row[data-idx="${i}"]`);
+      const p = r.querySelector('.p').textContent;
+      const c = r.querySelector('.c').textContent;
+      title.textContent = `${p} — ${c}`;
+      num.textContent = String(i+1).padStart(2,'0') + ' ⁄ 10';
+    }
+  }
+  rows.forEach(r => {
+    r.addEventListener('mouseenter', () => activateRow(+r.dataset.idx));
+  });
+  document.getElementById('work-preview').addEventListener('mouseleave', () => activateRow(-1));
+  document.getElementById('work-list').addEventListener('mouseleave', () => activateRow(-1));
+  activateRow(-1);
+
+  // ---------- work sub-nav (Client / Portfolio) ----------
+  const subBtns = document.querySelectorAll('.work-subnav button');
+  const subViews = document.querySelectorAll('.work-view');
+  const workMeta = document.getElementById('work-meta');
+  function setView(v){
+    subBtns.forEach(b => b.classList.toggle('active', b.dataset.view === v));
+    subViews.forEach(s => s.classList.toggle('active', s.dataset.view === v));
+    workMeta.textContent = v === 'client' ? 'Selected client work · 06' : 'Hover for preview';
+    // reset client reel scroll when switching back
+    if(v === 'client'){
+      const reel = document.getElementById('client-reel');
+      if(reel) reel.scrollTop = 0;
+    }
+  }
+  subBtns.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+  */
+</script>
+
+</body>
+</html>
