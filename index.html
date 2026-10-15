@@ -2,11 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>oddball — AI-native creative studio</title>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="oddball" />
+<meta property="og:url" content="https://oddball.works/" />
+<meta property="og:title" content="oddball — AI-native creative studio" />
+<meta property="og:description" content="oddball은 브랜드의 상상을 현실로 만드는 AI 크리에이티브 스튜디오입니다." />
+<meta property="og:image" content="https://oddball.works/img/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://oddball.works/img/og.png" />
 <meta name="description" content="oddball은 현실의 프레임 안에 비현실 한 컷으로 브랜드의 언어를 담아내는 AI-Native Creative Studio입니다." />
-<link rel="icon" href="img/oddball-logo-black.svg" />
-<link rel="stylesheet" href="https://use.typekit.net/dbj4evq.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png" />
+<link rel="stylesheet" href="https://use.typekit.net/dbj4evq.css?v=2" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
@@ -22,20 +35,15 @@
     --on-dark:#efece6;
     --on-dark-2:#9a9794;
     --on-dark-3:#5e5b57;
-    --mono:'josefin-sans',ui-sans-serif,system-ui,sans-serif;
-    --serif:'josefin-sans',ui-sans-serif,system-ui,sans-serif;
+    --mono:"athelas","Pretendard Variable","Pretendard",serif;
+    --serif:"athelas","Pretendard Variable","Pretendard",serif;
     --ease: cubic-bezier(.4,.0,.2,1);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   html,body{overflow-x:hidden}
-
   a{color:inherit;text-decoration:none}
   button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
-
-  /* ============================================================
-     page transitions
-     ============================================================ */
   .screen{
     position:fixed;inset:0;
     opacity:0;pointer-events:none;
@@ -43,10 +51,6 @@
   }
   .screen.active{opacity:1;pointer-events:auto}
   .screen[data-page="work"], .screen[data-page="about"]{background:var(--paper)}
-
-  /* ============================================================
-     shared chrome
-     ============================================================ */
   .topnav{
     position:absolute;left:0;right:0;top:0;z-index:30;
     display:flex;justify-content:space-between;align-items:center;
@@ -66,7 +70,6 @@
   }
   .topnav nav a:hover{color:var(--on-dark)}
   .topnav nav a.active{color:var(--on-dark)}
-
   .screen[data-page="work"] .topnav,
   .screen[data-page="about"] .topnav{
     background:var(--paper);
@@ -93,27 +96,33 @@
   .screen[data-page="about"] .topnav nav,
   .screen[data-page="about"] .topnav .pill,
   .screen[data-page="about"] .topnav .slug,
-  .screen[data-page="about"] .topnav .meta{font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
+  .screen[data-page="about"] .topnav .meta{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
   .topnav .word img{display:block;height:19px;width:auto}
-
-  /* ============================================================
-     WORK
-     ============================================================ */
+  @media (max-width:760px){
+    .topnav{padding:0 16px;gap:12px}
+    .topnav nav{position:static;left:auto;top:auto;transform:none;gap:14px;flex:0 1 auto;justify-content:center;white-space:nowrap;font-size:11px;letter-spacing:.1em}
+    .topnav .word img{height:16px}
+    .topnav .social{gap:12px;flex:0 0 auto}
+    .topnav .social svg{width:19px;height:19px}
+    .topnav .word{flex:0 0 auto}
+  }
+  @media (max-width:400px){
+    .topnav nav{gap:10px;font-size:10px;letter-spacing:.06em}
+    .topnav .word img{height:14px}
+    .topnav .social svg{width:17px;height:17px}
+  }
   .work-body{
     position:absolute;left:0;right:0;top:112px;bottom:0;
     overflow:hidden;
   }
   .work-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 360ms var(--ease)}
   .work-view.active{opacity:1;pointer-events:auto}
-
-  /* ---------- Client view: vertical case reel ---------- */
   .client-reel{
     position:absolute;inset:0;
     overflow-y:auto;
   }
   .client-reel::-webkit-scrollbar{width:0;height:0}
   .client-reel{scrollbar-width:none}
-
   .case-pair{
     display:grid;grid-template-columns:1fr 1fr;
     gap:0;
@@ -150,83 +159,6 @@
     font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);
     text-align:right;
   }
-
-
-  /* PORTFOLIO CSS — kept for later use
-  /* ---------- Portfolio view: index + sticky preview ---------- */
-  .portfolio{
-    position:absolute;inset:0;
-    display:grid;grid-template-columns:1fr 38vw;
-  }
-  .work-list-wrap{
-    overflow-y:auto;
-    padding:32px 36px 56px;
-  }
-  .work-list-wrap::-webkit-scrollbar{width:0;height:0}
-  .work-list-wrap{scrollbar-width:none}
-
-  .work-list .head, .work-list .row{
-    display:grid;
-    grid-template-columns:80px 1.6fr 1fr 110px;
-    gap:32px;
-    padding:18px 0;
-    border-bottom:1px solid var(--ink);
-    align-items:baseline;
-  }
-  .work-list .head{
-    font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);
-    padding:10px 0;
-  }
-  .work-list .row{
-    cursor:pointer;
-    transition:background 320ms var(--ease), padding 320ms var(--ease);
-  }
-  .work-list .row .y{font-family:var(--mono);font-size:14px;color:var(--ink);transition:color 320ms var(--ease)}
-  .work-list .row .p{
-    font-family:var(--serif);font-style:italic;
-    font-size:clamp(24px, 2.6vw, 36px);
-    line-height:1;letter-spacing:-.01em;color:var(--ink);
-    transition:transform 320ms var(--ease);
-    transform-origin:left center;
-  }
-  .work-list .row .c{font-family:var(--mono);font-size:14px;color:var(--ink)}
-  .work-list .row .t{font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-align:right}
-  .work-list .row:hover, .work-list .row.active{
-    background:#f5f5f5;
-    padding-left:14px;padding-right:14px;
-  }
-  .work-list .row:hover .p, .work-list .row.active .p{
-    transform:translateX(2px);
-  }
-
-  .work-preview{
-    position:relative;
-    border-left:1px solid var(--ink);
-    background:var(--paper);
-    overflow:hidden;
-  }
-  .work-preview .stack{position:absolute;inset:36px 36px 80px 36px}
-  .work-preview .slot{
-    position:absolute;inset:0;opacity:0;transition:opacity 480ms var(--ease);
-  }
-  .work-preview .slot.active{opacity:1}
-  .work-preview .slot image-slot{width:100%;height:100%;display:block;--is-radius:0}
-  .work-preview .empty{
-    position:absolute;inset:0;display:grid;place-items:center;
-    font-family:var(--serif);font-style:italic;font-size:clamp(44px, 5.4vw, 80px);color:#dcdcdc;letter-spacing:-.01em;
-  }
-  .work-preview .meta{
-    position:absolute;left:36px;right:36px;bottom:36px;
-    display:flex;justify-content:space-between;align-items:baseline;
-    font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
-  }
-  .work-preview .meta .title{font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.005em;text-transform:none;color:var(--ink)}
-  .work-preview .meta .num{color:var(--soft)}
-
-
-  /* ============================================================
-     CONTACT
-     ============================================================ */
   .screen[data-page="contact"]{background:var(--paper)}
   .screen[data-page="contact"] .topnav{background:var(--paper);position:fixed}
   .screen[data-page="contact"] .topnav .slug,
@@ -240,8 +172,8 @@
   .screen[data-page="contact"] .topnav nav,
   .screen[data-page="contact"] .topnav .pill,
   .screen[data-page="contact"] .topnav .slug,
-  .screen[data-page="contact"] .topnav .meta{font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
-  .contact-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;padding:88px 36px 48px}
+  .screen[data-page="contact"] .topnav .meta{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
+  .contact-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;padding:72px 36px 48px}
   .contact-body::-webkit-scrollbar{width:0;height:0}
   .contact-body{scrollbar-width:none}
   .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px 80px;max-width:1400px}
@@ -251,39 +183,89 @@
   .contact-grid .em{color:var(--ink)}
   .contact-grid a{color:var(--ink);text-decoration:none;transition:opacity 260ms var(--ease)}
   .contact-grid a:hover{opacity:.5}
-  .contact-grid h5{margin:0 0 8px;font-size:16px;font-weight:400;color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+  .contact-grid h5{margin:0 0 8px;font-size:16px;font-weight:600;color:var(--ink);text-decoration:none}
   .contact-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-size:16px;line-height:1.62}
+  .inq{display:flex;flex-direction:column;gap:20px;margin-top:40px;max-width:560px}
+  .inq .f{display:flex;flex-direction:column;gap:8px}
+  .inq .f span{font-size:14px;color:var(--ink)}
+  .inq input,.inq textarea{font:inherit;font-size:16px;line-height:1.5;color:var(--ink);background:#fff;border:1px solid #e2e2e2;border-radius:4px;padding:12px 14px;outline:none;transition:border-color 200ms var(--ease)}
+  .inq textarea{resize:vertical;min-height:140px}
+  .inq input:focus,.inq textarea:focus{border-color:var(--ink)}
+  .inq .bad,.inq .bad:focus,.inq .max,.inq .max:focus{border-color:#c0392b}
+  .inq .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .inq{gap:36px;margin-top:48px}
+  .inq .f{gap:6px}
+  .inq .f span{display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:500;color:var(--ink);letter-spacing:-.005em}
+  .inq .f span em{font-style:normal;font-weight:400;font-size:13px;color:#8a8a8a;letter-spacing:0}
+  .inq .req{color:#8a8a8a;margin-left:-4px}
+  .inq input,.inq textarea{border:0 !important;border-bottom:1px solid #d9d9d9 !important;border-radius:0 !important;padding:10px 0 12px !important;background:transparent !important;transition:border-color 220ms var(--ease)}
+  .inq input:hover,.inq textarea:hover{border-bottom-color:#9a9a9a !important}
+  .inq input:focus,.inq textarea:focus{border-bottom-color:var(--ink) !important}
+  .inq .bad,.inq .max{border-bottom-color:#c0392b !important}
+  .inq textarea{resize:none;min-height:0;height:auto;overflow:hidden;field-sizing:content}
+  .inq ::placeholder{color:#b4b4b4}
+  .inq-act{margin-top:4px}
+  .inq fieldset.rb{border:0;margin:0;padding:0;min-width:0}
+  .rb-opts{display:flex;flex-wrap:wrap;gap:12px 28px;padding:12px 0 4px}
+  .rb-o{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:var(--ink);min-height:28px}
+  .rb-o input{position:absolute;opacity:0;width:1px;height:1px}
+  .rb-o i{width:16px;height:16px;border:1px solid #bdbdbd;border-radius:50%;flex:none;display:grid;place-items:center;transition:border-color 200ms var(--ease)}
+  .rb-o i::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ink);transform:scale(0);transition:transform 200ms var(--ease)}
+  .rb-o:hover i{border-color:#6a6a6a}
+  .rb-o input:checked+i{border-color:var(--ink)}
+  .rb-o input:checked+i::after{transform:scale(1)}
+  .rb-o input:focus-visible+i{box-shadow:0 0 0 3px var(--accent)}
+  .inq .rb-etc{display:none;margin-top:6px}
+  .inq .rb.etc-on .rb-etc{display:block}
+  .inq-test{display:none}
+  .inq-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px !important;font-weight:500;border-radius:0}
+  .inq-btn::after{content:"→";transition:transform 220ms var(--ease)}
+  .inq-btn:hover::after{transform:translateX(3px)}
+  .okm{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(10,10,10,.4);padding:24px}
+  .okm.open{display:flex}
+  .okm-box{width:min(360px,100%);background:#fff;border-radius:4px;padding:28px 24px 20px;display:flex;flex-direction:column;gap:20px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;color:#0a0a0a;box-shadow:0 12px 40px rgba(0,0,0,.12)}
+  .okm-box p{margin:0;font-size:16px;line-height:1.5;text-align:center}
+  .okm-box p .en{display:block;font-size:14px;color:#6a6a6a;margin-top:2px}
+  .okm-btn{align-self:stretch;font-size:16px;color:#0a0a0a;background:var(--accent);padding:12px 0;border-radius:4px;transition:background 200ms var(--ease)}
+  .okm-btn:hover{background:#c9e6f8}
+  .inq-test{font-size:13px;color:#9a9a9a;text-decoration:underline;text-underline-offset:3px}
+  .inq-act{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-wrap:wrap}
+  .inq-act .inq-msg{order:-1;margin-right:auto}
+  .inq .req{font-style:normal;color:var(--ink)}
+  .inq textarea::placeholder{color:#9a9a9a}
+  .inq-btn{font-size:16px;color:#fff;background:var(--ink);padding:12px 28px;transition:opacity 200ms var(--ease)}
+  .inq-btn:hover{opacity:.8}
+  .inq-btn[disabled]{opacity:.4;cursor:default}
+  .inq-msg{font-size:14px;color:var(--ink)}
+  .screen[data-page="contact"] .contact-grid p.inq-note{font-size:14px;color:#1d2b31}
   .contact-foot{margin-top:72px;padding-top:18px;display:flex;justify-content:center;text-align:center;line-height:1.35;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-
-  /* ============================================================
-     ABOUT
-     ============================================================ */
   .about-strip{
     position:fixed;left:0;right:0;top:66px;height:78px;z-index:5;
     display:flex;gap:1px;background:var(--ink);overflow:hidden;
   }
   .about-strip image-slot{flex:1 0 7.2%;min-width:0;height:100%;display:block;--is-radius:0;border:none}
-
   .about-body{
     position:absolute;left:0;right:0;top:66px;bottom:0;
-    padding:48px 28px 36px;
+    padding:72px 36px 36px;
     overflow-y:auto;
   }
   .about-body::-webkit-scrollbar{width:0;height:0}
   .about-body{scrollbar-width:none}
-
+  .about-row{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,72px);align-items:start;max-width:1600px}
+  .about-fig{margin:0}
+  .about-fig img{display:block;width:100%;height:auto;aspect-ratio:986/1080;object-fit:cover}
+  @media (max-width:760px){.about-row{grid-template-columns:minmax(0,1fr)}}
   .about-cols{
     display:flex;flex-direction:column;gap:28px;
     max-width:1600px;
   }
-  .about-cols p{margin:0;max-width:62ch;font-size:clamp(16px,1.5vw,20px);line-height:1.5;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
+  .about-cols h2{margin:0;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+  .about-cols p{margin:0;max-width:62ch;font-size:16px;line-height:1.5;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
   .about-foot{
     margin-top:56px;padding-top:18px;
     display:flex;justify-content:center;text-align:center;line-height:1.35;
     font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);
   }
-
-  /* mode pill on About (top-right replaces the meta) */
   .pill{
     border:1px solid var(--ink);border-radius:14px;padding:3px 12px;
     display:inline-flex;align-items:center;gap:10px;
@@ -291,11 +273,6 @@
     color:var(--ink);
   }
   .pill .x{opacity:.45}
-
-
-  /* ============================================================
-     WORK — dark editorial masthead
-     ============================================================ */
   .screen[data-page="work"]{background:#0a0a0a;color:#fff}
   .screen[data-page="work"] .topnav{background:#0a0a0a}
   .screen[data-page="work"] .topnav .word img{filter:invert(1)}
@@ -304,24 +281,26 @@
   .screen[data-page="work"] .topnav nav a{color:#fff;opacity:.5}
   .screen[data-page="work"] .topnav nav a:hover,
   .screen[data-page="work"] .topnav nav a.active{opacity:1}
-
   .topnav .social{display:flex;align-items:center;gap:18px}
   .topnav .social a{display:flex;color:#ffffff;opacity:1;transition:opacity 240ms var(--ease)}
   .topnav .social a:hover{opacity:.6}
   .topnav .social svg{width:24px;height:24px;display:block}
-
+  .topnav .social svg.th{width:21px;height:21px}
   .work-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;overflow-x:hidden}
   .work-body::-webkit-scrollbar{width:0;height:0}
   .work-body{scrollbar-width:none}
-
-  .work-intro{padding:72px 36px 0;display:flex;justify-content:center}
-  .work-intro .stmt{margin:0;text-align:center;font-size:clamp(28px,3vw,48px);line-height:1.14;letter-spacing:-.01em;color:#fff}
+  .work-intro{padding:72px 36px 0;display:flex;flex-direction:column;align-items:center}.work-intro .stmt-ko{margin:8px 0 0;text-align:center;font-family:'Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:20px;line-height:1.6;color:rgba(255,255,255,.62);text-wrap:pretty;word-break:keep-all}
+  .work-intro .stmt{font-family:"athelas",serif;margin:0;text-align:center;font-size:clamp(28px,3vw,48px);line-height:1.14;letter-spacing:-.01em;color:#fff}
+  @font-face{font-family:"arthritis-brk";src:url("fonts/arthritis-brk.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+  .work-intro .stmt .brand{font-family:"arthritis-brk","athelas","Pretendard Variable",serif;font-weight:400;font-style:normal;font-size:clamp(36px,3.6vw,56px)}
+  .work-intro .stmt .brand .dd{letter-spacing:.06em}
+  .work-intro .stmt .brand{line-height:.9}
+  .work-intro .stmt .ln{display:block;line-height:1.1;padding:0}
+  .work-intro .stmt .ln+.ln{margin-top:0}
   .work-rule{height:1px;background:rgba(255,255,255,.32);margin:64px 36px 30px}
-
   .screen[data-page="work"] .work-view{position:static;display:none;opacity:1;pointer-events:auto}
   .screen[data-page="work"] .work-view.active{display:block}
   .screen[data-page="work"] .client-reel{position:static;overflow:visible}
-
   .case-grid{column-count:3;column-gap:24px;padding:0 36px 40px}
   .case-grid .case{break-inside:avoid;margin:0 0 52px;display:block}
   .screen[data-page="work"] .case[data-ar="16/9"] .case-img{aspect-ratio:16/9}
@@ -333,13 +312,13 @@
   .screen[data-page="work"] .case .case-img{aspect-ratio:3/4;background:#151515}
   .screen[data-page="work"] .case .case-cap{
     display:grid;grid-template-columns:auto 1fr;column-gap:10px;row-gap:6px;
-    padding:16px 0 0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+    padding:16px 0 0;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;
     text-transform:none;letter-spacing:0;
   }
+  .screen[data-page="work"] .case .case-cap{row-gap:2px}
   .screen[data-page="work"] .case .case-cap .desc{grid-column:1/-1;font-size:18px;font-weight:600;color:#fff;line-height:1.35;text-wrap:pretty}
-  .screen[data-page="work"] .case .case-cap .client{grid-column:1/-1;font-size:15px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.5}
+  .screen[data-page="work"] .case .case-cap .client{grid-column:1/-1;font-size:15px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.5;letter-spacing:0;text-transform:none;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
   .screen[data-page="work"] .case:hover .case-cap .desc{color:var(--accent)}
-
   .screen[data-page="work"] .portfolio{position:static;min-height:60vh;align-items:start}
   .screen[data-page="work"] .work-list-wrap{overflow:visible;padding:0 36px 56px 36px}
   .screen[data-page="work"] .work-list .head{color:rgba(255,255,255,.45);border-bottom-color:rgba(255,255,255,.28)}
@@ -355,17 +334,11 @@
   .screen[data-page="work"] .work-preview .meta{color:#fff}
   .screen[data-page="work"] .work-preview .meta .title{color:#fff}
   .screen[data-page="work"] .work-preview .meta .num{color:rgba(255,255,255,.5)}
-
-
-  */
-
-  /* ============================================================
-     ACCENT — #def1fc
-     ============================================================ */
+  .screen,.screen *,.pop,.pop *{cursor:url("img/cursor-sky-24.png") 12 12,auto !important}
+  .screen[data-page="about"],.screen[data-page="about"] *,.screen[data-page="contact"],.screen[data-page="contact"] *{cursor:url("img/cursor-black-24.png") 12 12,auto !important}
+  .screen input,.screen textarea{cursor:text !important}
   ::selection{background:var(--accent);color:#0a0a0a}
   a:hover{color:inherit}
-
-  /* nav: active + hover pick up the tint */
   .screen[data-page="work"] .topnav nav a:hover,
   .screen[data-page="work"] .topnav nav a.active{color:var(--accent);opacity:1}
   .screen[data-page="about"] .topnav nav a:hover,
@@ -373,72 +346,194 @@
   .screen[data-page="contact"] .topnav nav a:hover,
   .screen[data-page="contact"] .topnav nav a.active{opacity:1;color:#0a0a0a}
   .topnav .social a:hover{color:var(--accent);opacity:1}
+  .screen[data-page="about"] .topnav .social a,
+  .screen[data-page="contact"] .topnav .social a{color:#9a9a9a}
   .screen[data-page="about"] .topnav .social a:hover,
   .screen[data-page="contact"] .topnav .social a:hover{color:#0a0a0a;opacity:1}
-
-  /* work: statement highlight + tabs */
   .work-intro .stmt em{font-style:normal;color:var(--accent)}
-  .work-rule{background:linear-gradient(90deg,var(--accent) 0 22%,rgba(255,255,255,.28) 22% 100%)}
+  .work-rule{background:none}
+  .work-tabs{display:flex;justify-content:center;gap:28px;margin:64px 36px 32px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
+  .work-tabs .wt{font-size:16px;color:rgba(255,255,255,.5);padding:0 0 6px;transition:color 240ms var(--ease)}
+  .work-tabs .wt{display:inline-flex;flex-direction:column;align-items:center}
+  .work-tabs .wt::after{content:attr(data-label);font-weight:600;height:0;overflow:hidden;visibility:hidden;pointer-events:none}
+  .work-tabs .wt:hover{color:#fff}
+  .work-tabs .wt.active{color:var(--accent);font-weight:600;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
+  .work-empty{margin:0;padding:24px 36px 80px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:16px;color:rgba(255,255,255,.5)}
+  .personal-grid:not(:empty)+.work-empty{display:none}
   .screen[data-page="work"] .work-list .row:hover,
   .screen[data-page="work"] .work-list .row.active{background:rgba(222,241,252,.12)}
   .screen[data-page="work"] .work-list .row:hover .t,
   .screen[data-page="work"] .work-list .row.active .t{color:var(--accent)}
-
-  /* light pages: link + heading accents */
   .about-cols p.en{color:#3a3a3a}
   .about-cols p.en::first-line{color:#3a3a3a}
   .contact-grid a:hover{opacity:.5}
-
-  /* contact page sits on the accent */
-  .screen[data-page="contact"]{background:var(--accent)}
-  .screen[data-page="contact"] .topnav{background:var(--accent)}
+  .screen[data-page="contact"]{background:#fff}
+  .screen[data-page="contact"] .topnav{background:#fff}
   .screen[data-page="contact"] .contact-grid p{color:#1d2b31}
+  .screen[data-page="about"] .topnav nav a.active,
+  .screen[data-page="contact"] .topnav nav a.active{background:var(--accent);box-shadow:0 0 0 6px var(--accent);border-radius:1px;color:#0a0a0a;opacity:1}
+  .inq-btn{background:var(--accent) !important;color:#0a0a0a !important}
+  .inq-btn:hover{opacity:1 !important;background:#c9e6f8 !important}
+  .screen[data-page="work"] .case .case-img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 420ms var(--ease);pointer-events:none;z-index:2}
+  .screen[data-page="work"] .case:hover .case-img::after{transform:scaleX(1)}
+  .screen .topnav nav a.active{background:none !important;box-shadow:none !important;font-weight:600;opacity:1 !important;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
+  .screen[data-page="work"] .topnav nav a.active,
+  .screen[data-page^="w"] .topnav nav a.active{color:var(--accent) !important}
+  .screen[data-page="about"] .topnav nav a.active,
+  .screen[data-page="contact"] .topnav nav a.active{color:#0a0a0a !important}
+  .topnav nav,.topnav nav a{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif !important;letter-spacing:.04em !important}
   .about-foot,.contact-foot{position:relative}
-
-
-  /* ============================================================
-     CASE DETAIL (1 depth)
-     ============================================================ */
+  .about-foot,.contact-foot,.case-foot{text-transform:none !important;letter-spacing:.01em !important}
+  .case-next{border-top:none !important;padding-top:0 !important}
+  .case-next .lbl{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif !important;letter-spacing:.04em !important}
+  .case-foot{height:40px !important;padding:0 !important;margin:72px 0 0 !important;display:flex !important;align-items:center;justify-content:center;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif !important;font-size:14px !important;line-height:1 !important;color:rgba(255,255,255,.5) !important}
+  .work-body,.case-body{top:0 !important;padding-top:66px !important}
+  .about-body{top:0 !important;padding-top:138px !important}
+  .contact-body{top:0 !important;padding-top:138px !important}
+  .screen .topnav{transition:transform 520ms var(--ease),opacity 520ms var(--ease),background-color 300ms var(--ease);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
+  .screen[data-page="work"] .topnav,.screen[data-page^="w"] .topnav{background:rgba(10,10,10,.62) !important}
+  .screen[data-page="about"] .topnav,.screen[data-page="contact"] .topnav{background:rgba(255,255,255,.72) !important}
+  .screen.active .topnav{animation:gnbIn 700ms var(--ease) both}
+  html.gnb-ready .screen .topnav{animation:none !important}
+  .screen .topnav.gnb-hide{transform:translateY(-100%);opacity:0}
+  @keyframes gnbIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion:reduce){.screen.active .topnav{animation:none}.screen .topnav{transition:none}}
+  .gal{position:fixed;inset:0;z-index:210;background:rgba(10,10,10,.96);display:none;flex-direction:column;color:#fff;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
+  .gal.open{display:flex}
+  .gal-bar{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 36px;font-size:14px}
+  .gal-bar .gt{display:flex;gap:16px;flex-wrap:wrap;min-width:0}
+  .gal-bar .gc{color:rgba(255,255,255,.55)}
+  .gal-bar .gr{display:flex;gap:28px;align-items:baseline}
+  .gal-n{color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+  .gal-close{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#fff;transition:color 200ms var(--ease)}
+  .gal-close:hover{color:var(--accent)}
+  .gal-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 96px}
+  .gal-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;transition:opacity 260ms var(--ease)}
+  .gal-stage img.fade{opacity:0}
+  .gal-arr{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;display:grid;place-items:center;color:#fff;border-radius:50%;transition:background 200ms var(--ease),color 200ms var(--ease)}
+  .gal-arr:hover{background:var(--accent);color:#0a0a0a}
+  .gal-arr svg{width:22px;height:22px}
+  .gal-prev{left:28px}.gal-next{right:28px}
+  .gal-thumbs{display:flex;gap:8px;justify-content:center;padding:20px 36px 28px;overflow-x:auto;scrollbar-width:none}
+  .gal-thumbs::-webkit-scrollbar{display:none}
+  .gal-thumbs button{flex:0 0 auto;width:56px;height:56px;opacity:.4;transition:opacity 200ms var(--ease);outline:2px solid transparent;outline-offset:2px}
+  .gal-thumbs button img{width:100%;height:100%;object-fit:cover;display:block}
+  .gal-thumbs button:hover{opacity:.8}
+  .gal-thumbs button.on{opacity:1;outline-color:var(--accent)}
+  @media (max-width:760px){.gal-bar{padding:18px 16px}.gal-stage{padding:0 16px}.gal-arr{display:none}.gal-thumbs{justify-content:flex-start;padding:16px}}
+  @media (max-width:760px){
+    .case-grid,.about-body,.contact-body{padding-left:16px !important;padding-right:16px !important}
+    .work-tabs{margin-left:16px !important;margin-right:16px !important}
+    .work-empty{padding-left:16px !important;padding-right:16px !important}
+  }
+  .mnav-btn,.mnav{display:none}
+  @media (max-width:760px){
+    .topnav nav a:not(.active){display:none}
+    .topnav nav{cursor:pointer}
+    .mnav-btn{display:inline-grid;place-items:center;width:28px;height:28px;margin-left:-8px;color:inherit;transition:transform 260ms var(--ease)}
+    .mnav-btn svg{width:12px;height:12px}
+    .screen[data-page="work"] .mnav-btn,.screen[data-page^="w"] .mnav-btn{color:var(--accent)}
+    .screen[data-page="about"] .mnav-btn,.screen[data-page="contact"] .mnav-btn{color:#0a0a0a}
+    .topnav.nav-open .mnav-btn{transform:rotate(180deg)}
+    .topnav .nav-wrap{display:flex;align-items:center;gap:0}
+    .mnav{position:absolute;left:0;right:0;top:100%;flex-direction:column;padding:4px 16px 12px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 240ms var(--ease),transform 240ms var(--ease)}
+    .topnav.nav-open .mnav{opacity:1;transform:none;pointer-events:auto}
+    .mnav a{display:flex;align-items:center;min-height:48px}
+    .screen[data-page="work"] .mnav,.screen[data-page^="w"] .mnav{display:flex;background:rgba(10,10,10,.9)}
+    .screen[data-page="work"] .mnav a,.screen[data-page^="w"] .mnav a{color:rgba(255,255,255,.6)}
+    .screen[data-page="work"] .mnav a.active,.screen[data-page^="w"] .mnav a.active{color:var(--accent);font-weight:600}
+    .screen[data-page="about"] .mnav,.screen[data-page="contact"] .mnav{display:flex;background:rgba(255,255,255,.94)}
+    .screen[data-page="about"] .mnav a,.screen[data-page="contact"] .mnav a{color:rgba(10,10,10,.5)}
+    .screen[data-page="about"] .mnav a.active,.screen[data-page="contact"] .mnav a.active{color:#0a0a0a;font-weight:600}
+  }
+  @media (max-width:760px){
+    .topnav{flex-wrap:wrap !important;height:auto !important;padding:14px 16px 0 !important;row-gap:0 !important}
+    .topnav .word{order:1}
+    .topnav .social{order:2;margin-left:auto}
+    .topnav .nav-wrap{order:3;flex:0 0 100%;height:40px;justify-content:flex-start}
+    .topnav nav,.topnav nav a{font-size:16px !important;letter-spacing:.04em !important}
+    .mnav-btn{margin-left:2px;width:32px;height:32px}
+    .mnav-btn svg{width:14px;height:14px}
+    .mnav{font-size:16px !important;padding:4px 16px 12px}
+    .work-body,.case-body{padding-top:96px !important}
+    .about-body,.contact-body{padding-top:136px !important}
+  }
+  @media (max-width:760px){
+    html[data-mnav="inline"] .screen .topnav,html[data-mnav="menu"] .screen .topnav,html[data-mnav="bottom"] .screen .topnav{flex-wrap:nowrap !important;height:56px !important;padding:0 16px !important}
+    html[data-mnav="inline"] .work-body,html[data-mnav="inline"] .case-body,html[data-mnav="menu"] .work-body,html[data-mnav="menu"] .case-body,html[data-mnav="bottom"] .work-body,html[data-mnav="bottom"] .case-body{padding-top:56px !important}
+    html[data-mnav="inline"] .about-body,html[data-mnav="inline"] .contact-body,html[data-mnav="menu"] .about-body,html[data-mnav="menu"] .contact-body,html[data-mnav="bottom"] .about-body,html[data-mnav="bottom"] .contact-body{padding-top:112px !important}
+    html[data-mnav="inline"] .topnav .nav-wrap{position:absolute;left:50%;top:0;height:56px;transform:translateX(-50%);flex:none}
+    html[data-mnav="menu"] .topnav .social{margin-left:auto}
+    html[data-mnav="menu"] .topnav .nav-wrap{order:3;flex:none;height:auto;margin-left:20px}
+    html[data-mnav="menu"] .topnav nav{display:none !important}
+    html[data-mnav="menu"] .mnav-btn{width:auto;height:44px;margin:0;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:16px;letter-spacing:.04em;text-transform:uppercase;transform:none !important}
+    html[data-mnav="menu"] .mnav-btn svg{display:none}
+    html[data-mnav="menu"] .mnav-btn::before{content:'Menu'}
+    html[data-mnav="menu"] .topnav.nav-open .mnav-btn::before{content:'Close'}
+    html[data-mnav="menu"] .mnav{height:calc(100dvh - 56px);justify-content:flex-start;gap:4px;padding:32px 16px !important;font-size:36px !important;letter-spacing:-.01em !important;text-transform:none}
+    html[data-mnav="menu"] .screen[data-page="work"] .mnav,html[data-mnav="menu"] .screen[data-page^="w"] .mnav{background:rgba(10,10,10,.97)}
+    html[data-mnav="menu"] .screen[data-page="about"] .mnav,html[data-mnav="menu"] .screen[data-page="contact"] .mnav{background:rgba(255,255,255,.98)}
+    html[data-mnav="menu"] .mnav a{min-height:60px}
+    html[data-mnav="bottom"] .screen .topnav{-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+    html[data-mnav="bottom"] .screen[data-page="work"] .topnav,html[data-mnav="bottom"] .screen[data-page^="w"] .topnav{background:rgba(10,10,10,.92) !important}
+    html[data-mnav="bottom"] .screen[data-page="about"] .topnav,html[data-mnav="bottom"] .screen[data-page="contact"] .topnav{background:rgba(255,255,255,.95) !important}
+    html[data-mnav="bottom"] .screen .topnav.gnb-hide{transform:none !important;opacity:1 !important}
+    html[data-mnav="bottom"] .topnav .social{margin-left:auto}
+    html[data-mnav="bottom"] .topnav .nav-wrap{position:fixed;left:0;right:0;bottom:0;height:56px;z-index:40;padding:0 16px env(safe-area-inset-bottom)}
+    html[data-mnav="bottom"] .screen[data-page="work"] .nav-wrap,html[data-mnav="bottom"] .screen[data-page^="w"] .nav-wrap{background:rgba(10,10,10,.94)}
+    html[data-mnav="bottom"] .screen[data-page="about"] .nav-wrap,html[data-mnav="bottom"] .screen[data-page="contact"] .nav-wrap{background:rgba(255,255,255,.96)}
+    html[data-mnav="bottom"] .topnav nav{flex:1;display:flex;justify-content:space-around;cursor:default}
+    html[data-mnav="bottom"] .topnav nav a:not(.active){display:inline-flex !important}
+    html[data-mnav="bottom"] .mnav-btn,html[data-mnav="bottom"] .mnav{display:none !important}
+    html[data-mnav="bottom"] .work-body,html[data-mnav="bottom"] .case-body,html[data-mnav="bottom"] .about-body,html[data-mnav="bottom"] .contact-body,html[data-mnav="bottom"] .client-reel{padding-bottom:56px !important}
+  }
+  .contact-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;gap:72px 96px !important;max-width:1280px !important;align-items:start}
+  @media (max-width:900px){.contact-grid{grid-template-columns:minmax(0,1fr) !important;gap:72px !important;max-width:640px !important}.contact-grid > div:nth-child(2){order:-1}}
+  .foot-social{display:none}
+  @media (max-width:760px){
+    .topnav .social{display:none !important}
+    html[data-mnav="menu"] .topnav .nav-wrap{margin-left:auto}
+    .about-foot,.contact-foot,.work-foot,.case-foot{height:auto !important;flex-direction:column !important;gap:12px;padding:12px 0 24px !important}
+    .foot-social{display:flex;gap:20px;align-items:center}
+    .foot-social a{display:grid;place-items:center;width:44px;height:44px;color:inherit;transition:color 200ms var(--ease)}
+    .foot-social a:hover{color:var(--accent)}
+    .foot-social svg{width:20px;height:20px}
+    .about-foot .foot-social,.contact-foot .foot-social{color:#8a8a8a}
+    .work-foot .foot-social,.case-foot .foot-social{color:rgba(255,255,255,.6)}
+  }
+  .about-foot,.contact-foot,.work-foot{height:40px !important;padding:0 !important;margin-top:72px !important;display:flex !important;align-items:center;justify-content:center;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif !important;font-size:14px !important;line-height:1 !important}
+  .work-foot{color:rgba(255,255,255,.5);text-transform:none;letter-spacing:.01em;margin-bottom:0}
   .screen[data-page^="w"]:not([data-page="work"]){background:#0a0a0a;color:#fff}
   .screen[data-page^="w"]:not([data-page="work"]) .topnav{background:#0a0a0a}
   .screen[data-page^="w"]:not([data-page="work"]) .topnav .word img{filter:invert(1)}
   .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a{color:#fff;opacity:.5}
   .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a:hover,
   .screen[data-page^="w"]:not([data-page="work"]) .topnav nav a.active{color:var(--accent);opacity:1}
-
   .case-body{position:absolute;left:0;right:0;top:66px;bottom:0;overflow-y:auto;overflow-x:hidden;padding:0 36px 0}
   .case-body::-webkit-scrollbar{width:0;height:0}
   .case-body{scrollbar-width:none}
-
   .case-back{display:inline-flex;gap:10px;align-items:center;margin:32px 0 0;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color 240ms var(--ease)}
   .case-back:hover{color:var(--accent)}
-
   .case-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:start;padding:48px 0 34px}
-  .case-head h1{margin:0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(26px,2.8vw,44px);font-weight:600;line-height:1.16;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
-  .case-facts{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 32px;font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
-  .case-facts dt{margin:0 0 4px;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .case-head h1{margin:0;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:clamp(26px,2.8vw,44px);font-weight:600;line-height:1.16;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
+  .case-facts{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 32px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
+  .case-facts dt{margin:0 0 4px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42)}
   .case-facts dd{margin:0;font-size:16px;line-height:1.5;color:#fff}
-
   .case-hero{aspect-ratio:16/9;background:#151515}
   .case-hero image-slot{width:100%;height:100%;display:block;--is-radius:0}
-
-  .case-note{max-width:62ch;margin:44px 0 0;font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(16px,1.25vw,19px);line-height:1.68;color:rgba(255,255,255,.82);text-wrap:pretty}
-
+  .case-note{max-width:62ch;margin:44px 0 0;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:clamp(16px,1.25vw,19px);line-height:1.68;color:rgba(255,255,255,.82);text-wrap:pretty}
   .case-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:56px 0 0}
   .case-stack .cs{background:#151515}
   .case-stack .cs image-slot{width:100%;height:100%;display:block;--is-radius:0}
   .case-stack .half{aspect-ratio:4/5}
   .case-stack .full{grid-column:1/-1;aspect-ratio:16/9}
-
   .case-next{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 32px;align-items:baseline;margin:88px 0 0;padding:26px 0 0;border-top:1px solid rgba(255,255,255,.22);transition:border-color 260ms var(--ease)}
   .case-next:hover{border-top-color:var(--accent)}
   .case-next .lbl{grid-column:1/-1;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42)}
-  .case-next .ttl{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:clamp(20px,1.8vw,30px);font-weight:600;line-height:1.25;color:#fff;transition:color 260ms var(--ease)}
+  .case-next .ttl{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:clamp(20px,1.8vw,30px);font-weight:600;line-height:1.25;color:#fff;transition:color 260ms var(--ease)}
   .case-next:hover .ttl{color:var(--accent)}
-  .case-next .cl{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:16px;color:rgba(255,255,255,.55);white-space:nowrap}
-
+  .case-next .cl{font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:16px;color:rgba(255,255,255,.55);white-space:nowrap}
   .case-foot{margin:96px 0 0;padding:18px 0 40px;display:flex;justify-content:center;text-align:center;line-height:1.35;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-
   .ph{width:100%;height:100%;object-fit:contain;display:block;background:#0f0f0f}
   .screen[data-page="work"] .case[data-ar="1/1"] .case-img{aspect-ratio:1/1}
   .screen[data-page="work"] .case[data-ar="3/4"] .case-img{aspect-ratio:3/4}
@@ -451,8 +546,18 @@
   .case-stack.sq{grid-template-columns:repeat(2,minmax(0,1fr))}
   .case-stack.sq .cs{aspect-ratio:1/1}
   @media (max-width:900px){.case-hero.sq{max-width:100%}}
-
-  /* youtube facade */
+  .pop{position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.94);display:none;flex-direction:column;color:#fff}
+  .pop.open{display:flex}
+  .pop-bar{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:22px 36px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:14px}
+  .pop-bar .pt{display:flex;gap:16px;flex-wrap:wrap;min-width:0}
+  .pop-bar .pc{color:rgba(255,255,255,.55)}
+  .pop-close{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#fff;transition:color 200ms var(--ease)}
+  .pop-close:hover{color:var(--accent)}
+  .pop-stage{flex:1;min-height:0;display:flex;gap:24px;align-items:center;justify-content:center;padding:0 36px 48px;overflow:auto}
+  .pop-v{position:relative;flex:0 0 auto;background:#000}
+  .pop-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .pop.stack .pop-stage{flex-direction:column;justify-content:flex-start;padding:0 16px 32px}
+  @media (max-width:760px){.pop-bar{padding:18px 16px}}
   .yt{position:relative;width:100%;height:100%;background:#151515;overflow:hidden;cursor:pointer}
   .yt img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 320ms var(--ease),transform 600ms var(--ease)}
   .yt.vertical img{object-fit:cover;object-position:center}
@@ -475,32 +580,145 @@
   .case-hero .yt.vertical{aspect-ratio:9/16}
   .case-stack .cs.vert{aspect-ratio:9/16}
   .case-grid .yt .ytplay{display:none}
-
-  /* clickable cards on the work index */
+  .case-link[data-pop]{cursor:pointer}
   .case-link{display:flex;flex-direction:column;min-width:0;color:inherit}
-
   @media (max-width:900px){
     .case-head{grid-template-columns:minmax(0,1fr);align-items:start;gap:28px}
     .case-stack{grid-template-columns:minmax(0,1fr)}
     .case-stack .full{aspect-ratio:16/9}
   }
-
-  /* ============================================================
-     accessibility / motion
-     ============================================================ */
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important}
   }
+  .about-foot,.contact-foot,.work-foot,.case-foot{height:auto !important;padding:28px 16px 32px !important;flex-direction:column !important;gap:16px !important}
+  .foot-in{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;line-height:1.6;text-align:center;word-break:keep-all}
+  .foot-in .biz{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 16px}
+  .foot-in a{color:inherit;text-decoration:none;transition:opacity 200ms var(--ease)}
+  .foot-in a:hover{opacity:.6;color:inherit}
+  .foot-in .pp-link{font-weight:600}
+  .agree{display:flex;flex-direction:column;gap:10px;padding-top:4px}
+  .agree-sum{margin:0;font-size:13px;line-height:1.7;color:#6a6a6a}
+  .agree-o{display:inline-flex;align-items:center;gap:10px;font-size:15px;color:var(--ink)}
+  .agree-o input{position:absolute;opacity:0;width:1px;height:1px}
+  .agree-o > i{width:16px;height:16px;border:1px solid #bdbdbd;flex:none;display:grid;place-items:center;transition:background 200ms var(--ease),border-color 200ms var(--ease)}
+  .agree-o > i::after{content:"";width:8px;height:4px;border-left:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform 200ms var(--ease)}
+  .agree-o:hover > i{border-color:#8fcbee}
+  .agree-o input:checked+i{background:var(--accent);border-color:#8fcbee}
+  .agree-o input:checked+i::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+  .agree-o input:focus-visible+i{box-shadow:0 0 0 3px var(--accent)}
+  .agree-o a{text-decoration:underline;text-underline-offset:3px;color:#6a6a6a}
+  .agree.bad .agree-o > i{border-color:#c0392b}
+  .rb-o:hover i{border-color:#8fcbee}
+  .rb-o input:checked+i{border-color:#8fcbee;background:var(--accent)}
+  .rb-o i::after{background:var(--ink)}
+  .inq-btn{height:44px;padding:0 24px !important;line-height:1}
+  .agree{gap:8px}
+  .agree-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .agree-more{font-size:13px;color:#6a6a6a;text-decoration:underline;text-underline-offset:3px}
+  .agree-more:hover{color:var(--ink)}
+  .agree .agree-sum{display:none;padding:12px 14px;background:#f6f8f9;font-size:13px;line-height:1.75}
+  .agree.open .agree-sum{display:block}
+  .agree-sum a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+  .rb-o input:checked+i{background:#fff !important;border-color:#8fcbee !important}
+  .rb-o i::after{background:#9fd3f2 !important}
+  .about-body{display:flex;flex-direction:column;padding-bottom:0 !important}
+  .about-body > .about-row{flex:none}
+  .about-body > .about-foot{margin-top:auto !important;padding-top:72px !important}
+  .foot-in .biz{gap:2px 0 !important}
+  .foot-in .biz > *{display:inline-flex;align-items:center}
+  .foot-in .biz > * + *::before{content:"";display:inline-block;width:1px;height:10px;background:currentColor;opacity:.35;margin:0 12px}
+  .foot-in .pp-link{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+  .agree-o input:checked+i{background:#fff !important;border-color:#8fcbee !important}
+  .agree-o > i::after{border-left-color:#8fcbee !important;border-bottom-color:#8fcbee !important;border-left-width:2px !important;border-bottom-width:2px !important}
+  html[data-navstyle] .screen:is([data-page="about"],[data-page="contact"]) .topnav nav a.active,
+  html[data-navstyle] .screen:is([data-page="about"],[data-page="contact"]) .mnav a.active{text-decoration:none !important}
+  html[data-navstyle="hl"] .screen:is([data-page="about"],[data-page="contact"]) .topnav nav a.active{background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 88%/100% 48% !important;padding:0 3px;margin:0 -3px}
+  html[data-navstyle="hl"] .screen:is([data-page="about"],[data-page="contact"]) .mnav a.active{align-self:flex-start;background:linear-gradient(var(--accent),var(--accent)) no-repeat 0 calc(50% + 5px)/100% 10px !important;padding:0 3px;margin:0 -3px}
+  html[data-navstyle="dot"] .screen:is([data-page="about"],[data-page="contact"]) .topnav nav a.active{position:relative}
+  html[data-navstyle="dot"] .screen:is([data-page="about"],[data-page="contact"]) .topnav nav a.active::after{content:"";position:absolute;left:50%;bottom:-12px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#9fd3f2}
+  html[data-navstyle="dot"] .screen:is([data-page="about"],[data-page="contact"]) .mnav a.active::after{content:"";width:5px;height:5px;border-radius:50%;background:#9fd3f2;margin-left:10px;flex:none}
+  html[data-navstyle="hl"] .screen .topnav nav a.active,html[data-navstyle="hl"] .screen .mnav a.active{text-decoration:none !important}
+  html[data-navstyle="hl"] .screen:is([data-page="work"],[data-page^="w"]) .topnav nav a.active{color:#fff !important;background:linear-gradient(rgba(222,241,252,.38),rgba(222,241,252,.38)) no-repeat 0 88%/100% 48% !important;padding:0 3px;margin:0 -3px}
+  html[data-navstyle="hl"] .screen:is([data-page="work"],[data-page^="w"]) .mnav a.active{color:#fff !important;align-self:flex-start;background:linear-gradient(rgba(222,241,252,.38),rgba(222,241,252,.38)) no-repeat 0 calc(50% + 5px)/100% 10px !important;padding:0 3px;margin:0 -3px}
+  .foot-in .biz > * + *::before{content:none !important}
+  .foot-in .biz > :not(:last-child)::after{content:"";display:inline-block;width:1px;height:10px;background:currentColor;opacity:.35;margin:0 12px;flex:none}
+  .foot-in .biz > *{white-space:nowrap}
+  @media (max-width:760px){.foot-in .biz > *{white-space:normal}}
+  .inq{gap:28px !important;margin-top:36px !important}
+  .inq .f{gap:4px !important}
+  .inq .f span em{font-size:13px;color:#8a8a8a}
+  .screen[data-page="contact"] .contact-grid p.inq-en{margin-top:6px;font-size:16px;line-height:1.45;color:#8a8a8a}
+  .rb-opts{gap:8px !important;padding:10px 0 2px !important}
+  .rb-o{position:relative;gap:0 !important;min-height:36px;padding:0 14px;border:1px solid #d9d9d9;font-size:14px !important;cursor:pointer;transition:border-color 200ms var(--ease),background 200ms var(--ease)}
+  .rb-o > i{display:none !important}
+  .rb-o:hover{border-color:#8fcbee}
+  .rb-o:has(input:checked){background:var(--accent);border-color:var(--accent)}
+  .rb-o:has(input:focus-visible){box-shadow:0 0 0 3px var(--accent)}
+  .inq-bottom{display:flex;align-items:flex-start;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding-top:4px}
+  .inq-bottom .agree{flex:1 1 260px;min-width:0;padding-top:12px !important}
+  .inq-bottom .inq-act{margin:0 !important;flex:none}
+  .inq-reply{margin:-16px 0 0;font-size:13px;color:#8a8a8a;text-align:right}
+  @media (max-width:560px){.inq-bottom .inq-act,.inq-bottom .inq-btn{width:100%;justify-content:center}.inq-reply{text-align:left}}
+  .agree-o input:checked+i{background:#8fcbee !important;border-color:#8fcbee !important}
+  .agree-o > i::after{border-left-color:#fff !important;border-bottom-color:#fff !important}
+  .inq fieldset.rb > span{gap:4px !important}
+  .screen[data-page="contact"] .contact-grid p.inq-en,.inq .f span em{color:#868e96 !important}
+  .inq input,.inq textarea{border-bottom-color:#d5dbe1 !important}
+  .inq input:hover,.inq textarea:hover{border-bottom-color:#97a1ab !important}
+  .inq input:focus,.inq textarea:focus{border-bottom-color:var(--ink) !important}
+  .inq .bad,.inq .max{border-bottom-color:#c0392b !important}
+  .inq ::placeholder{color:#adb5bd !important}
+  .rb-o{border-color:#d5dbe1}
+  .rb-o:has(input:checked){border-color:var(--accent)}
+  .agree-o > i{border-color:#bcc4cc}
+  .agree.bad .agree-o > i{border-color:#c0392b}
+  .agree-more,.agree-sum{color:#6b747d !important}
+  .agree-more:hover{color:var(--ink) !important}
+  .agree .agree-sum{background:#f3f6f8 !important}
+  .inq-reply{color:#868e96 !important}
+  .soc-sep{display:inline-block;width:1px;height:.8em;background:currentColor;opacity:.35;margin:0 10px;vertical-align:-.05em}
+  .contact-body{padding-bottom:0}
+
+  .gal-close,.pop-close{display:grid;place-items:center;width:44px;height:44px;margin:-12px -12px -12px 0;padding:0;background:none;border:0;font-size:0;letter-spacing:0;color:#fff;cursor:pointer}
+  .gal-close svg,.pop-close svg{width:20px;height:20px;display:block}
+  .gal-bar .gr{align-items:center !important}
+
+  @media (max-width:760px){html[data-mnav="menu"] .topnav.nav-open .mnav-btn::before{content:'' !important;display:block;width:20px;height:20px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E") center/contain no-repeat}
+  html[data-mnav="menu"] .topnav.nav-open .mnav-btn{display:grid;place-items:center;min-width:44px;min-height:44px}}
+
+  .inq textarea{line-height:1.5 !important;min-height:calc(1.5em + 23px) !important;box-sizing:border-box}
+
+  @media (max-width:760px){.work-intro .stmt-ko{font-size:15px !important}}
+
+  .inq input,.inq textarea{padding:8px 0 4px !important}
+  .inq textarea{min-height:calc(1.5em + 12px) !important}
+
+  /* form type: 16 / 14 only */
+  .inq .f span{font-size:16px !important}
+  .inq .f span em{font-size:14px !important}
+  .agree-o{font-size:16px !important}
+  .agree-more,.agree-sum,.agree .agree-sum{font-size:14px !important}
+  .rb-o{font-size:14px !important}
+  .inq input,.inq textarea,.inq-btn{font-size:16px !important}
+  .screen[data-page="contact"] .contact-grid p.inq-en{font-size:16px !important}
+
+  .screen[data-page="contact"] .contact-grid h5{color:#868e96 !important}
+
+  .agree-o > i{width:20px !important;height:20px !important}
+  .agree-o > i::after{width:10px !important;height:5px !important}
+
+  .inq-bottom{flex-direction:column !important;align-items:stretch !important;gap:20px !important;flex-wrap:nowrap !important}
+  .inq-bottom .agree{flex:none !important;width:100%;padding-top:0 !important}
+  .inq-bottom .inq-act,.inq-bottom .inq-btn{width:100% !important;justify-content:center}
+
+  @media (max-width:760px){.screen[data-page="work"] .case-grid{padding-bottom:0 !important}.screen[data-page="work"] .work-foot{margin-top:0 !important}}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
 <body>
-
-<!-- ============================================================
-     WORK
-     ============================================================ -->
 <section class="screen active" data-page="work" data-screen-label="Work">
   <header class="topnav">
-    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
     <nav>
       <a href="#work" class="active" data-link="work">Work</a>
       <a href="#about" data-link="about">About</a>
@@ -508,127 +726,92 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
-
   <div class="work-body">
-
     <div class="work-intro">
-      <p class="stmt">oddball is an AI creative studio building<br />brand imagination into <em>film, image and identity.</em></p>
+      <p class="stmt"><span class="ln"><span class="brand">od<span class="dd">d</span><span class="db">b</span>all</span> is an AI creative studio building</span><span class="ln">brand imagination into <em>film, image and identity.</em></span></p>
+      <p class="stmt-ko">oddball은 브랜드의 상상을 현실로 만드는 AI 크리에이티브 스튜디오입니다.</p>
     </div>
-
-    <div class="work-rule"></div>
-
-    <!-- ---- CLIENT VIEW: vertical case reel ---- -->
+    <div class="work-tabs" role="tablist">
+      <button type="button" role="tab" class="wt active" data-view="client" data-label="Commercial" aria-selected="true">Commercial</button>
+      <button type="button" role="tab" class="wt" data-view="personal" data-label="Personal" aria-selected="false">Personal</button>
+    </div>
     <div class="work-view active" data-view="client">
       <div class="client-reel" id="client-reel">
         <div class="case-grid">
-          <a class="case case-link" href="#w1" data-link="w1" data-ar="16/9">
-            <div class="case-img"><img class="ph" src="img/wells-mimi.png" alt="교원웰스 미미 정수기" loading="lazy" /></div>
+          <a class="case case-link" href="#work" data-pop="1KJoUxtOycg:h" data-ar="16/9">
+            <div class="case-img"><img class="ph" src="img/wells-mimi.jpg" alt="Kyowon Wells Mimi" loading="lazy" /></div>
             <div class="case-cap">
-              <span class="desc">미미 정수기 AI 광고</span>
-              <span class="client">교원웰스</span>
+              <span class="desc">Mimi Water Purifier — Product Film</span>
+              <span class="client">Kyowon Wells</span>
             </div>
           </a>
-          <a class="case case-link" href="#w2" data-link="w2" data-ar="16/9">
-            <div class="case-img"><div class="yt cover" data-yt="_5ihA4PAfoo"><img src="https://i.ytimg.com/vi/_5ihA4PAfoo/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_5ihA4PAfoo/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+          <a class="case case-link" href="#work" data-gal="img/deliel-p04.jpg|img/deliel-p01.jpg|img/deliel-p02.jpg|img/deliel-p03.jpg|img/deliel-p05.jpg|img/deliel-p06.jpg" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/deliel-p04.jpg" alt="Deliel" loading="lazy" /></div>
             <div class="case-cap">
-              <span class="desc">스파원 비데 AI 광고 2종</span>
-              <span class="client">교원웰스</span>
-            </div>
-          </a>
-          <a class="case case-link" href="#w3" data-link="w3" data-ar="1/1">
-            <div class="case-img"><img class="ph" src="img/deliel-sns-01.png" alt="Deliel" loading="lazy" /></div>
-            <div class="case-cap">
-              <span class="desc">단백질 쉐이크 SNS 광고</span>
+              <span class="desc">Protein Shake — Brand SNS Image</span>
               <span class="client">Deliel</span>
             </div>
           </a>
-          <a class="case case-link" href="#w4" data-link="w4" data-ar="9/16">
-            <div class="case-img"><div class="yt cover" data-yt="_GAsXp5Kp1Q"><img src="https://i.ytimg.com/vi/_GAsXp5Kp1Q/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_GAsXp5Kp1Q/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
+          <a class="case case-link" href="#work" data-pop="oTrkuMf6YDA:v" data-ar="9/16">
+            <div class="case-img"><div class="yt cover" data-yt="oTrkuMf6YDA"><img src="https://i.ytimg.com/vi/oTrkuMf6YDA/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/oTrkuMf6YDA/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
             <div class="case-cap">
-              <span class="desc">오거스타 소파 숏폼</span>
+              <span class="desc">Augusta Sofa — Short-form</span>
               <span class="client">Dauning</span>
             </div>
           </a>
-          <a class="case case-link" href="#w5" data-link="w5" data-ar="3/4">
-            <div class="case-img"><img class="ph" src="img/sweetch-01.png" alt="SWEETCH" loading="lazy" /></div>
+          <a class="case case-link" href="#work" data-pop="i4PkIvPqXqg:v" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/sweetch-01.jpg" alt="sweetch" loading="lazy" /></div>
             <div class="case-cap">
-              <span class="desc">Glossy Black Polka Dot 제품 영상</span>
-              <span class="client">SWEETCH</span>
+              <span class="desc">Glossy Black Polka Dot — Product Film</span>
+              <span class="client">sweetch</span>
             </div>
           </a>
-          <a class="case case-link" href="#w6" data-link="w6" data-ar="3/4">
-            <div class="case-img"><img class="ph" src="img/rareraw-01.png" alt="rareraw" loading="lazy" /></div>
+          <a class="case case-link" href="#work" data-pop="_5ihA4PAfoo:h" data-ar="16/9">
+            <div class="case-img"><div class="yt cover" data-yt="_5ihA4PAfoo"><img src="https://i.ytimg.com/vi/_5ihA4PAfoo/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_5ihA4PAfoo/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
             <div class="case-cap">
-              <span class="desc">Home Helper 영상</span>
-              <span class="client">rareraw</span>
+              <span class="desc">Spa One Bidet — Product Film</span>
+              <span class="client">Kyowon Wells</span>
             </div>
           </a>
-          <a class="case case-link" href="#w7" data-link="w7" data-ar="3/4">
-            <div class="case-img"><img class="ph" src="img/deliel-p04.png" alt="Deliel" loading="lazy" /></div>
+          <a class="case case-link" href="#work" data-pop="d_s168FFQY8:v" data-ar="9/16">
+            <div class="case-img"><div class="yt cover" data-yt="d_s168FFQY8"><img src="img/wells-shorts.jpg" alt="" style="object-fit:cover" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
             <div class="case-cap">
-              <span class="desc">단백질 쉐이크 브랜드 모션/이미지</span>
+              <span class="desc">Spa One Bidet — Short-form</span>
+              <span class="client">Kyowon Wells</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#work" data-pop="kGQWYsjtBj8:v" data-ar="3/4">
+            <div class="case-img"><img class="ph" src="img/rareraw-01.jpg" alt="RARERAW" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">Home Helper — Product Film</span>
+              <span class="client">RARERAW</span>
+            </div>
+          </a>
+          <a class="case case-link" href="#work" data-gal="img/deliel-sns-01.jpg|img/deliel-sns-02.jpg|img/deliel-sns-03.jpg|img/deliel-sns-04.jpg|img/deliel-sns-05.jpg" data-ar="1/1">
+            <div class="case-img"><img class="ph" src="img/deliel-sns-01.jpg" alt="Deliel" loading="lazy" /></div>
+            <div class="case-cap">
+              <span class="desc">Protein Shake — Social Campaign</span>
               <span class="client">Deliel</span>
             </div>
           </a>
         </div>
       </div>
     </div>
-
-    <!-- PORTFOLIO VIEW ~~ kept for later use
-    <div class="work-view" data-view="portfolio">
-      <div class="portfolio">
-        <div class="work-list-wrap">
-          <div class="work-list" id="work-list">
-            <div class="head"><span>Year</span><span>Project</span><span>Context</span><span style="text-align:right">Type</span></div>
-            <div class="row" data-idx="0"><span class="y">2025</span><span class="p">Mirage</span><span class="c">Self-initiated</span><span class="t">Identity</span></div>
-            <div class="row" data-idx="1"><span class="y">2025</span><span class="p">After Hours</span><span class="c">Personal</span><span class="t">Image</span></div>
-            <div class="row" data-idx="2"><span class="y">2025</span><span class="p">Slow Channel</span><span class="c">R&amp;D</span><span class="t">Film</span></div>
-            <div class="row" data-idx="3"><span class="y">2024</span><span class="p">Paperweight</span><span class="c">Self-initiated</span><span class="t">Image</span></div>
-            <div class="row" data-idx="4"><span class="y">2024</span><span class="p">Atrium</span><span class="c">Studio</span><span class="t">Identity</span></div>
-            <div class="row" data-idx="5"><span class="y">2024</span><span class="p">Hours</span><span class="c">Personal</span><span class="t">Film</span></div>
-            <div class="row" data-idx="6"><span class="y">2024</span><span class="p">Folded Light</span><span class="c">R&amp;D</span><span class="t">Image</span></div>
-            <div class="row" data-idx="7"><span class="y">2023</span><span class="p">Field Notes</span><span class="c">Self-initiated</span><span class="t">Identity</span></div>
-            <div class="row" data-idx="8"><span class="y">2023</span><span class="p">Half Light</span><span class="c">Personal</span><span class="t">Film</span></div>
-            <div class="row" data-idx="9"><span class="y">2023</span><span class="p">Slow Object</span><span class="c">R&amp;D</span><span class="t">Image</span></div>
-          </div>
-        </div>
-
-        <aside class="work-preview" id="work-preview">
-          <div class="stack">
-            <div class="empty" id="work-empty">oddball</div>
-            <div class="slot" data-slot="0"><image-slot shape="rounded" radius="0" id="p-0" placeholder="Mirage"></image-slot></div>
-            <div class="slot" data-slot="1"><image-slot shape="rounded" radius="0" id="p-1" placeholder="After Hours"></image-slot></div>
-            <div class="slot" data-slot="2"><image-slot shape="rounded" radius="0" id="p-2" placeholder="Slow Channel"></image-slot></div>
-            <div class="slot" data-slot="3"><image-slot shape="rounded" radius="0" id="p-3" placeholder="Paperweight"></image-slot></div>
-            <div class="slot" data-slot="4"><image-slot shape="rounded" radius="0" id="p-4" placeholder="Atrium"></image-slot></div>
-            <div class="slot" data-slot="5"><image-slot shape="rounded" radius="0" id="p-5" placeholder="Hours"></image-slot></div>
-            <div class="slot" data-slot="6"><image-slot shape="rounded" radius="0" id="p-6" placeholder="Folded Light"></image-slot></div>
-            <div class="slot" data-slot="7"><image-slot shape="rounded" radius="0" id="p-7" placeholder="Field Notes"></image-slot></div>
-            <div class="slot" data-slot="8"><image-slot shape="rounded" radius="0" id="p-8" placeholder="Half Light"></image-slot></div>
-            <div class="slot" data-slot="9"><image-slot shape="rounded" radius="0" id="p-9" placeholder="Slow Object"></image-slot></div>
-          </div>
-          <div class="meta">
-            <span class="title" id="work-title"></span>
-            <span class="num" id="work-num">— ⁄ 10</span>
-          </div>
-        </aside>
+    <div class="work-view" data-view="personal">
+      <div class="client-reel">
+        <div class="case-grid personal-grid"><a class="case case-link" href="#work" data-pop="Hzwv8wAit20:v" data-ar="9/16"><div class="case-img"><img class="ph" src="img/greyman.jpg" alt="oddball — GREY MAN" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">GREY MAN</span><span class="client">개인 작업</span></div></a><a class="case case-link" href="#work" data-pop="s_M4h4_nQUM:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/berex-pebble2.jpg" alt="oddball — 코웨이 비렉스 페블체어2" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">코웨이 비렉스 페블체어2</span><span class="client">공모전 제출</span></div></a><a class="case case-link" href="#work" data-pop="RrYKQ16UnkE:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/mujinjang.jpg" alt="oddball — 무진장" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">무진장</span><span class="client">공모전 제출</span></div></a><a class="case case-link" href="#work" data-pop="oqGtWeH4WTk:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/personal-01.jpg" alt="oddball — ERROR" loading="lazy" style="object-fit:cover;object-position:50% 40%" /></div><div class="case-cap"><span class="desc">ERROR</span><span class="client">개인 작업</span></div></a></div>
+        <p class="work-empty">Personal work — coming soon.</p>
       </div>
     </div>
-
-
-    -->
+    <div class="work-foot"><div class="foot-in"><div class="biz"><span>상호: 오드볼</span><span>대표: 문예진, 문예원</span><span>사업자등록번호: 875-54-00936</span><span>주소: 서울시 강북구 노해로23길 123 (수유동, 강북청년창업마루)</span><span>이메일: <a href="mailto:contact@oddball.works">contact@oddball.works</a></span></div><div class="biz"><a class="pp-link" href="/privacy" target="_blank" rel="noopener">개인정보처리방침</a><span>© 2026 oddball. All rights reserved.</span></div></div></div>
   </div>
 </section>
-
-<!-- ============================================================
-     ABOUT
-     ============================================================ -->
 <section class="screen" data-page="about" data-screen-label="About">
   <header class="topnav">
-    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
     <nav>
       <a href="#work" data-link="work">Work</a>
       <a href="#about" class="active" data-link="about">About</a>
@@ -636,31 +819,26 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
-
-
   <div class="about-body">
+    <div class="about-row">
     <div class="about-cols">
-      <p class="en">oddball is an AI-native creative studio that captures a brand’s voice with greater creativity and precision — framing a single surreal moment within the real. We plan and produce a wide range of content, from short-form social media to brand campaigns and advertising, delivering each brand’s intended message with nuance and authenticity.</p>
-
-      <p>oddball은 ‘현실의 프레임 안에 비현실 한 컷’으로 브랜드의 언어를 보다 창의적이고, 정교하게 담아내는 AI-Native Creative Studio입니다.</p>
-      <p>SNS 숏폼, 브랜드 캠페인, 광고까지 다양한 종류의 콘텐츠를 기획 및 제작하며, 브랜드가 전달하고자 하는 메시지를 더 섬세하고 자연스럽게 전달합니다.</p>
+      <h2>About</h2>
+      <p>oddball은 ‘현실의 프레임 안에 비현실 한 컷’으로 브랜드의 언어를 보다 창의적이고, 정교하게 담아내는 AI-Native Creative Studio입니다. SNS 숏폼, 브랜드 캠페인, 광고까지 다양한 종류의 콘텐츠를 기획 및 제작하며, 브랜드가 전달하고자 하는 메시지를 더 섬세하고 자연스럽게 전달합니다.</p>
+      <p class="en">oddball is an AI-native creative studio that captures a brand’s voice with greater creativity and precision — framing a single surreal moment within the real.<br />We plan and produce a wide range of content, from short-form social media to brand campaigns and advertising, delivering each brand’s intended message with nuance and authenticity.</p>
     </div>
-
+    <figure class="about-fig"><img src="img/about-1111.jpg" alt="oddball — 11:11" /></figure>
+    </div>
     <div class="about-foot">
-      <span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span>
+      <div class="foot-in"><div class="biz"><span>상호: 오드볼</span><span>대표: 문예진, 문예원</span><span>사업자등록번호: 875-54-00936</span><span>주소: 서울시 강북구 노해로23길 123 (수유동, 강북청년창업마루)</span><span>이메일: <a href="mailto:contact@oddball.works">contact@oddball.works</a></span></div><div class="biz"><a class="pp-link" href="/privacy" target="_blank" rel="noopener">개인정보처리방침</a><span>© 2026 oddball. All rights reserved.</span></div></div>
     </div>
   </div>
 </section>
-
-<!-- ============================================================
-     CONTACT
-     ============================================================ -->
 <section class="screen" data-page="contact" data-screen-label="Contact">
   <header class="topnav">
-    <span class="word"><img src="img/oddball-logo-black.svg" alt="oddball" /></span>
+    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
     <nav>
       <a href="#work" data-link="work">Work</a>
       <a href="#about" data-link="about">About</a>
@@ -668,33 +846,34 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
+      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
-
   <div class="contact-body">
     <div class="contact-grid">
       <div>
-        <h2>Project inquiries</h2>
+        <h2>Project Inquiries</h2>
         <div class="blk">
-          <p>프로젝트 의뢰는 이메일로 받고 있습니다.<br />아래의 메일 주소로 프로젝트 내용, 일정 등 정보를 알려주시기 바랍니다.<br />검토 후 회신 드리겠습니다.</p>
+          <p>AI 콘텐츠 제작 의뢰는 아래 양식을 작성해 주세요. 영업일 기준 2일 내로 회신드립니다.</p><p class="inq-en">To commission AI content, please fill out the form below. We will get back to you within 2 business days.</p>
         </div>
-        <div class="blk">
-          <p>We accept project requests via email.<br />Please send the project details and timeline to the email address below.<br />We will review them and get back to you.</p>
-        </div>
-        <div class="blk">
-          <p class="em"><a href="mailto:yewon.mun@oddball.works">yewon.mun@oddball.works</a><br /><a href="tel:+821086233918">+82 (0)10 8623 3918</a></p>
-          <p class="em" style="margin-top:14px"><a href="mailto:yejin.mun@oddball.works">yejin.mun@oddball.works</a><br /><a href="tel:+821067003918">+82 (0)10 6700 3918</a></p>
-        </div>
+        <form class="inq" id="inq" novalidate>
+          <label class="f"><span>회사명</span><input name="회사명" type="text" maxlength="100" autocomplete="organization" required placeholder="회사 또는 브랜드명" /></label>
+          <label class="f"><span>프로젝트 설명</span><textarea name="프로젝트 설명" rows="1" maxlength="500" required placeholder="프로젝트 내용, 일정, 레퍼런스 등"></textarea></label>
+          <fieldset class="f rb"><span>예산 범위 <em>(선택)</em></span><div class="rb-opts"><label class="rb-o"><input type="radio" name="예산 범위" value="~100만원" /><i></i>~100만원</label><label class="rb-o"><input type="radio" name="예산 범위" value="100~500만원" /><i></i>100~500만원</label><label class="rb-o"><input type="radio" name="예산 범위" value="500~1000만원" /><i></i>500~1000만원</label><label class="rb-o"><input type="radio" name="예산 범위" value="기타" /><i></i>기타</label></div><input class="rb-etc" name="예산 범위(기타)" type="text" placeholder="예산을 직접 입력해 주세요" /></fieldset>
+          <label class="f"><span>연락처</span><input name="연락처/이메일" type="text" maxlength="100" autocomplete="email" required placeholder="이메일 또는 전화번호" /></label>
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" />
+          <div class="inq-bottom"><div class="agree"><div class="agree-row"><label class="agree-o"><input type="checkbox" name="개인정보 수집·이용 동의" value="동의함" required /><i></i><span>개인정보 수집·이용 동의</span></label><button type="button" class="agree-more" aria-expanded="false">자세히</button></div><p class="agree-sum">수집 항목: 회사명, 프로젝트 설명, 예산 범위, 연락처/이메일<br />목적: 프로젝트 문의 응대<br />보관: 접수일로부터 1년 후 파기<br />동의를 거부할 수 있으며, 거부 시 문의 접수가 제한됩니다. <a href="/privacy" target="_blank" rel="noopener">개인정보처리방침 전문</a></p></div>
+          <div class="inq-act"><button type="button" class="inq-test" id="inq-test">모달 테스트</button><button type="submit" class="inq-btn">전송</button></div></div>
+          <span class="inq-msg" id="inq-msg" aria-live="polite"></span>
+        </form>
       </div>
-
       <div>
         <h2>General</h2>
         <div class="blk">
           <h5>Social</h5>
           <ul>
-            <li><a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener">instagram.com/we.are.oddball</a></li>
-            <li><a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener">threads.com/@we.are.oddball</a></li>
+            <li><a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener">Instagram<span class="soc-sep" aria-hidden="true"></span>@we.are.oddball</a></li>
+            <li><a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener">Threads<span class="soc-sep" aria-hidden="true"></span>@we.are.oddball</a></li>
           </ul>
         </div>
         <div class="blk">
@@ -704,360 +883,22 @@
             <li>10:00 – 19:00 KST</li>
           </ul>
         </div>
+        <div class="blk">
+          <h5>Email</h5>
+          <ul>
+            <li><a href="mailto:contact@oddball.works">contact@oddball.works</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-
     <div class="contact-foot">
-      <span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span>
+      <div class="foot-in"><div class="biz"><span>상호: 오드볼</span><span>대표: 문예진, 문예원</span><span>사업자등록번호: 875-54-00936</span><span>주소: 서울시 강북구 노해로23길 123 (수유동, 강북청년창업마루)</span><span>이메일: <a href="mailto:contact@oddball.works">contact@oddball.works</a></span></div><div class="biz"><a class="pp-link" href="/privacy" target="_blank" rel="noopener">개인정보처리방침</a><span>© 2026 oddball. All rights reserved.</span></div></div>
     </div>
   </div>
 </section>
-
-<!-- ============================================================
-     CASE 01 — 교원웰스 / 미미 정수기 AI 광고
-     ============================================================ -->
-<section class="screen" data-page="w1" data-screen-label="Case 01">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>미미 정수기 AI 광고</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>교원웰스</dd></div>
-        <div><dt>Date</dt><dd>2026.05</dd></div>
-        <div><dt>Scope</dt><dd>AI Film</dd></div>
-        <div><dt>Deliverables</dt><dd>광고 영상 1종</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero"><div class="yt" data-yt="1KJoUxtOycg"><img src="https://i.ytimg.com/vi/1KJoUxtOycg/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/1KJoUxtOycg/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
-
-    <p class="case-note">정수기를 생활의 배경이 아니라 하루의 리듬으로 다룬 광고. 실제 주방의 프레임 안에 비현실적인 물의 순간을 한 컷 심어, 제품의 기능을 설명하지 않고 감각으로 전달했습니다.</p>
-
-
-    <a class="case-next" href="#w2" data-link="w2">
-      <span class="lbl">Next project</span>
-      <span class="ttl">스파원 비데 AI 광고 2종</span>
-      <span class="cl">교원웰스 <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 02 — 교원웰스 / 스파원 비데 AI 광고 2종
-     ============================================================ -->
-<section class="screen" data-page="w2" data-screen-label="Case 02">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>스파원 비데 AI 광고 2종</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>교원웰스</dd></div>
-        <div><dt>Date</dt><dd>2026.05</dd></div>
-        <div><dt>Scope</dt><dd>AI Film</dd></div>
-        <div><dt>Deliverables</dt><dd>광고 영상 2종</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero"><div class="yt" data-yt="_5ihA4PAfoo"><img src="https://i.ytimg.com/vi/_5ihA4PAfoo/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_5ihA4PAfoo/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
-
-    <p class="case-note">위생과 편안함이라는 두 축을 각각 다른 톤의 영상으로 분리해 제작. 동일한 조명 언어를 유지하면서 두 편이 한 캠페인으로 읽히도록 설계했습니다.</p>
-
-    <div class="case-stack duo">
-      <div class="cs vert"><div class="yt vertical" data-yt="d_s168FFQY8"><img src="https://i.ytimg.com/vi/d_s168FFQY8/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/d_s168FFQY8/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
-      <div class="cs vert"><img class="ph" src="img/wells-infinity.png" alt="스파원 비데 — 인피니티 수류" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w3" data-link="w3">
-      <span class="lbl">Next project</span>
-      <span class="ttl">단백질 쉐이크 SNS 광고</span>
-      <span class="cl">Deliel <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 03 — Deliel / 인스타그램 브랜드 이미지
-     ============================================================ -->
-<section class="screen" data-page="w3" data-screen-label="Case 03">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>단백질 쉐이크 SNS 광고</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>Deliel</dd></div>
-        <div><dt>Date</dt><dd>2026.05</dd></div>
-        <div><dt>Scope</dt><dd>SNS 광고</dd></div>
-        <div><dt>Deliverables</dt><dd>브랜드 이미지 세트</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero sq"><img class="ph" src="img/deliel-sns-01.png" alt="Deliel 브랜드 이미지 01" loading="lazy" /></div>
-
-    <p class="case-note">피드 단위로 읽히는 브랜드 이미지 세트. 제품 컷과 무드 컷을 교차 배치해, 스크롤 안에서 브랜드의 색과 질감이 먼저 기억되게 했습니다.</p>
-
-    <div class="case-stack sq">
-      <div class="cs"><img class="ph" src="img/deliel-sns-02.png" alt="Deliel 브랜드 이미지 02" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-sns-03.png" alt="Deliel 브랜드 이미지 03" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-sns-04.png" alt="Deliel 브랜드 이미지 04" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-sns-05.png" alt="Deliel 브랜드 이미지 05" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w4" data-link="w4">
-      <span class="lbl">Next project</span>
-      <span class="ttl">오거스타 소파 숏폼</span>
-      <span class="cl">Dauning <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 04 — Dauning / 오거스타 소파 숏폼
-     ============================================================ -->
-<section class="screen" data-page="w4" data-screen-label="Case 04">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>오거스타 소파 숏폼</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>Dauning</dd></div>
-        <div><dt>Date</dt><dd>2026.04</dd></div>
-        <div><dt>Scope</dt><dd>Short-form Film</dd></div>
-        <div><dt>Deliverables</dt><dd>숏폼 영상</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero"><div class="yt vertical" data-yt="_GAsXp5Kp1Q"><img src="https://i.ytimg.com/vi/_GAsXp5Kp1Q/maxresdefault.jpg" onerror="this.src='https://i.ytimg.com/vi/_GAsXp5Kp1Q/hqdefault.jpg'" alt="" /><button class="ytplay" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></button></div></div>
-
-    <p class="case-note">소파의 형태와 앉는 시간을 함께 보여주는 숏폼. 카메라가 머무는 속도를 제품의 편안함과 같은 속도로 맞췄습니다.</p>
-
-    <div class="case-stack trio">
-      <div class="cs"><img class="ph" src="img/dauning-01.png" alt="오거스타 소파 01" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/dauning-02.png" alt="오거스타 소파 02" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/dauning-03.png" alt="오거스타 소파 03" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w5" data-link="w5">
-      <span class="lbl">Next project</span>
-      <span class="ttl">Glossy Black Polka Dot 제품 영상</span>
-      <span class="cl">SWEETCH <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 05 — SWEETCH / Glossy Black Polka Dot 제품 영상
-     ============================================================ -->
-<section class="screen" data-page="w5" data-screen-label="Case 05">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>Glossy Black Polka Dot 제품 영상</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>SWEETCH</dd></div>
-        <div><dt>Date</dt><dd>2026.04</dd></div>
-        <div><dt>Scope</dt><dd>Product Film</dd></div>
-        <div><dt>Deliverables</dt><dd>제품 영상</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero port"><img class="ph" src="img/sweetch-01.png" alt="SWEETCH — Glossy Black Polka Dot 01" loading="lazy" /></div>
-
-    <p class="case-note">광택과 패턴이 부딪히는 표면을 주인공으로 둔 제품 영상. 반사광의 궤적을 컷의 리듬으로 사용했습니다.</p>
-
-    <div class="case-stack duo">
-      <div class="cs"><img class="ph" src="img/sweetch-02.png" alt="SWEETCH 02" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/sweetch-03.png" alt="SWEETCH 03" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w6" data-link="w6">
-      <span class="lbl">Next project</span>
-      <span class="ttl">Home Helper 영상</span>
-      <span class="cl">rareraw <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 06 — rareraw / 홈헬퍼 영상
-     ============================================================ -->
-<section class="screen" data-page="w6" data-screen-label="Case 06">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>Home Helper 영상</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>rareraw</dd></div>
-        <div><dt>Date</dt><dd>2026.01 – 2026.02</dd></div>
-        <div><dt>Scope</dt><dd>Brand Film</dd></div>
-        <div><dt>Deliverables</dt><dd>브랜드 영상</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero port"><img class="ph" src="img/rareraw-01.png" alt="Home Helper 01" loading="lazy" /></div>
-
-    <p class="case-note">집안일을 대신하는 서비스를 사람의 손짓으로 설명한 영상. 기능 나열 대신 하루가 가벼워지는 장면을 순서대로 놓았습니다.</p>
-
-    <div class="case-stack duo">
-      <div class="cs"><img class="ph" src="img/rareraw-02.png" alt="Home Helper 02" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/rareraw-03.png" alt="Home Helper 03" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w7" data-link="w7">
-      <span class="lbl">Next project</span>
-      <span class="ttl">단백질 쉐이크 브랜드 모션/이미지</span>
-      <span class="cl">Deliel <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CASE 07 — Deliel / 단백질 쉐이크 브랜드 모션/이미지
-     ============================================================ -->
-<section class="screen" data-page="w7" data-screen-label="Case 07">
-  <header class="topnav">
-    <span class="word"><a href="#work" data-link="work"><img src="img/oddball-logo-black.svg" alt="oddball" /></a></span>
-    <nav>
-      <a href="#work" class="active" data-link="work">Work</a>
-      <a href="#about" data-link="about">About</a>
-      <a href="#contact" data-link="contact">Contact</a>
-    </nav>
-    <span class="social">
-      <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c-5 0-8.2-3.3-8.2-9S7.3 3 12.2 3c3.6 0 6 1.5 7.1 4"></path><path d="M12.2 21c4.6 0 7.6-2.6 7.6-5.6 0-2.6-2.2-4.3-5.5-4.3-2.6 0-4.4 1.2-4.4 2.9 0 1.5 1.3 2.5 3 2.5 2.5 0 3.8-2 3.8-5.2 0-2-.7-3.6-2-4.6"></path></svg></a>
-    </span>
-  </header>
-
-  <div class="case-body">
-    <a class="case-back" href="#work" data-link="work"><span class="ar">←</span> Work</a>
-
-    <div class="case-head">
-      <h1>단백질 쉐이크 브랜드 모션/이미지</h1>
-      <dl class="case-facts">
-        <div><dt>Client</dt><dd>Deliel</dd></div>
-        <div><dt>Date</dt><dd>2026.01</dd></div>
-        <div><dt>Scope</dt><dd>Motion, Brand Image</dd></div>
-        <div><dt>Deliverables</dt><dd>모션 그래픽, 이미지 세트</dd></div>
-      </dl>
-    </div>
-
-    <div class="case-hero port"><img class="ph" src="img/deliel-p04.png" alt="Deliel 단백질 쉐이크 04" loading="lazy" /></div>
-
-    <p class="case-note">쉐이크의 밀도와 움직임을 브랜드의 성격으로 번역한 작업. 모션과 스틸을 같은 팔레트로 묶어 온채널에서 일관되게 쓰이도록 정리했습니다.</p>
-
-    <div class="case-stack trio">
-      <div class="cs"><img class="ph" src="img/deliel-p01.png" alt="Deliel 단백질 쉐이크 01" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-p02.png" alt="Deliel 단백질 쉐이크 02" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-p03.png" alt="Deliel 단백질 쉐이크 03" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-p05.png" alt="Deliel 단백질 쉐이크 05" loading="lazy" /></div>
-      <div class="cs"><img class="ph" src="img/deliel-p06.png" alt="Deliel 단백질 쉐이크 06" loading="lazy" /></div>
-    </div>
-
-    <a class="case-next" href="#w1" data-link="w1">
-      <span class="lbl">Next project</span>
-      <span class="ttl">미미 정수기 AI 광고</span>
-      <span class="cl">교원웰스 <span class="ar">→</span></span>
-    </a>
-
-    <div class="case-foot"><span>© 2026 ODDBALL, INC.<br />ALL RIGHTS RESERVED</span></div>
-  </div>
-</section>
-
+<div class="okm" id="okm" role="dialog" aria-modal="true" aria-labelledby="okm-t"><div class="okm-box"><p id="okm-t">전송되었습니다. 감사합니다.<span class="en">Your inquiry has been sent. Thank you.</span></p><button class="okm-btn" id="okm-btn" type="button">확인</button></div></div>
+<div class="gal" id="gal" role="dialog" aria-modal="true" aria-label="Gallery"><div class="gal-bar"><div class="gt"><span id="gal-title"></span><span class="gc" id="gal-client"></span></div><div class="gr"><span class="gal-n" id="gal-n"></span><button aria-label="Close" class="gal-close" id="gal-close" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button></div></div><div class="gal-stage" id="gal-stage"><button class="gal-arr gal-prev" id="gal-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"></path></svg></button><img id="gal-img" alt="" /><button class="gal-arr gal-next" id="gal-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"></path></svg></button></div><div class="gal-thumbs" id="gal-thumbs"></div></div>
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-label="Video"><div class="pop-bar"><div class="pt"><span class="pn" id="pop-title"></span><span class="pc" id="pop-client"></span></div><button aria-label="Close" class="pop-close" id="pop-close" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button></div><div class="pop-stage" id="pop-stage"></div></div>
 <script>
   // ---------- youtube facades ----------
   document.addEventListener('click', e => {
@@ -1068,9 +909,10 @@
     e.preventDefault();
     const id = box.dataset.yt;
     const f = document.createElement('iframe');
-    f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
     f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
     box.appendChild(f);
     box.classList.add('playing');
   });
@@ -1146,6 +988,200 @@
   subBtns.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
   */
 </script>
-
+<script>
+  // ---------- video popup ----------
+  (function(){
+    const pop=document.getElementById('pop'), stage=document.getElementById('pop-stage');
+    let items=[];
+    function layout(){
+      if(!items.length) return;
+      const vw=innerWidth, vh=innerHeight, gap=24, narrow=vw<760;
+      const els=stage.querySelectorAll('.pop-v');
+      pop.classList.toggle('stack', narrow);
+      if(narrow){
+        els.forEach((el,i)=>{const r=items[i].r;let w=vw-32;if(r<1)w=Math.min(w,(vh-120)*r);el.style.width=w+'px';el.style.height=(w/r)+'px';});
+        return;
+      }
+      const maxH=vh-140, maxW=vw-72-gap*(items.length-1);
+      const sumR=items.reduce((a,b)=>a+b.r,0);
+      const H=Math.min(maxH, maxW/sumR);
+      els.forEach((el,i)=>{el.style.height=H+'px';el.style.width=(H*items[i].r)+'px';});
+    }
+    function open(card){
+      items=card.dataset.pop.split(',').map(s=>{const [id,o]=s.split(':');return {id, ig:o==='ig', r:o==='ig'?0.5:(o==='v'?9/16:16/9)};});
+      stage.innerHTML='';
+      items.forEach((it,i)=>{
+        const d=document.createElement('div');d.className='pop-v';
+        const f=document.createElement('iframe');
+        f.src=it.ig?'https://www.instagram.com/reel/'+it.id+'/embed/':'https://www.youtube-nocookie.com/embed/'+it.id+'?rel=0&playsinline=1'+(i===0?'&autoplay=1':'');if(it.ig){d.style.background='#fff';f.scrolling='no';}
+        f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';d.appendChild(f);stage.appendChild(d);
+      });
+      document.getElementById('pop-title').innerHTML=card.querySelector('.desc').innerHTML;
+      document.getElementById('pop-client').textContent=card.querySelector('.client').textContent;
+      pop.classList.add('open');layout();
+    }
+    function close(){pop.classList.remove('open');stage.innerHTML='';items=[];}
+    document.addEventListener('click',e=>{
+      const c=e.target.closest('[data-pop]');
+      if(!c) return;
+      e.preventDefault();e.stopPropagation();open(c);
+    },true);
+    document.getElementById('pop-close').addEventListener('click',close);
+    pop.addEventListener('click',e=>{if(e.target===pop||e.target===stage)close();});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&pop.classList.contains('open'))close();});
+    addEventListener('resize',layout);
+  })();
+</script>
+<script>
+  // ---------- inquiry form → contact@oddball.works ----------
+  (function(){
+    const f=document.getElementById('inq'); if(!f) return;
+    const msg=document.getElementById('inq-msg'), btn=f.querySelector('.inq-btn');
+    f.querySelectorAll('textarea').forEach(t=>{const fit=()=>{if(!t.offsetParent)return;t.style.height='auto';t.style.height=(t.scrollHeight+1)+'px'};addEventListener('hashchange',()=>setTimeout(fit,60));addEventListener('resize',fit);t.addEventListener('input',fit);f.addEventListener('reset',()=>setTimeout(fit));fit()});
+    const rb=f.querySelector('.rb');if(rb){const etc=rb.querySelector('.rb-etc');rb.addEventListener('change',e=>{if(e.target.type!=='radio')return;const on=e.target.value==='기타';rb.classList.toggle('etc-on',on);if(on)etc.focus();});f.addEventListener('reset',()=>rb.classList.remove('etc-on'));}
+    f.querySelectorAll('.agree-more').forEach(b=>b.addEventListener('click',()=>{const a=b.closest('.agree');const o=a.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'접기':'자세히';}));
+    f.addEventListener('submit',async e=>{
+      e.preventDefault();
+      let ok=true;
+      f.querySelectorAll('[required]').forEach(el=>{const b=el.type==='checkbox'?!el.checked:!el.value.trim();(el.type==='checkbox'?el.closest('.agree'):el).classList.toggle('bad',b);if(b)ok=false;});
+      if(!ok){msg.textContent='필수 항목을 입력해주세요.';return;}
+      if(f._honey.value) return;
+      const data={};
+      new FormData(f).forEach((v,k)=>{if(k!=='_honey')data[k]=v;});
+      if(data['예산 범위']==='기타')data['예산 범위']='기타: '+(data['예산 범위(기타)']||'').trim();delete data['예산 범위(기타)'];
+      data._subject='[oddball] 새 프로젝트 문의 — '+(data['회사명']||'');
+      data._template='table';
+      data._captcha='false';
+      btn.disabled=true;msg.textContent='전송 중…';
+      try{
+        const r=await fetch('https://formsubmit.co/ajax/contact@oddball.works',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+        const j=await r.json().catch(()=>({}));
+        if(!r.ok||j.success==='false'||j.success===false) throw 0;
+        f.reset();msg.textContent='';window.showSentModal&&window.showSentModal();
+      }catch(_){
+        msg.innerHTML='전송에 실패했습니다. <a href="mailto:contact@oddball.works">contact@oddball.works</a>로 직접 보내주세요.';
+      }finally{btn.disabled=false;}
+    });
+    f.addEventListener('change',e=>{if(e.target.type==='checkbox'){const a=e.target.closest('.agree');a&&a.classList.remove('bad');}});
+    f.addEventListener('input',e=>{const t=e.target;if(!t.classList)return;t.classList.remove('bad');if(t.maxLength>0)t.classList.toggle('max',t.value.length>=t.maxLength);});
+    f.addEventListener('keydown',e=>{const t=e.target;if(t.maxLength>0&&t.value.length>=t.maxLength&&e.key.length===1&&!e.metaKey&&!e.ctrlKey)t.classList.add('max');});
+    f.addEventListener('reset',()=>f.querySelectorAll('.max').forEach(el=>el.classList.remove('max')));
+  })();
+</script>
+<script>
+  (function(){
+    const m=document.getElementById('okm'),b=document.getElementById('okm-btn');
+    window.showSentModal=function(){m.classList.add('open');b.focus();};
+    const close=()=>m.classList.remove('open');
+    b.addEventListener('click',close);
+    m.addEventListener('click',e=>{if(e.target===m)close();});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open'))close();});
+    const t=document.getElementById('inq-test'); if(t) t.addEventListener('click',()=>window.showSentModal());
+  })();
+</script>
+<script>
+  // ---------- GNB hide on scroll down / show on scroll up ----------
+  setTimeout(()=>document.documentElement.classList.add('gnb-ready'),750);
+  (function(){
+    document.querySelectorAll('.work-body,.case-body,.about-body,.contact-body').forEach(sc=>{
+      const nav=sc.closest('.screen').querySelector('.topnav'); if(!nav) return;
+      let last=0;
+      sc.addEventListener('scroll',()=>{
+        const y=sc.scrollTop, d=y-last;
+        if(y<80) nav.classList.remove('gnb-hide');
+        else if(d>6) nav.classList.add('gnb-hide');
+        else if(d<-6) nav.classList.remove('gnb-hide');
+        last=y;
+      },{passive:true});
+    });
+    addEventListener('hashchange',()=>document.querySelectorAll('.topnav.gnb-hide').forEach(n=>n.classList.remove('gnb-hide')));
+  })();
+</script>
+<script>
+  // ---------- image gallery modal ----------
+  (function(){
+    const g=document.getElementById('gal'),img=document.getElementById('gal-img'),th=document.getElementById('gal-thumbs'),n=document.getElementById('gal-n');
+    let list=[],i=0;
+    function show(k){
+      i=(k+list.length)%list.length;
+      img.classList.add('fade');
+      const s=list[i];
+      const done=()=>img.classList.remove('fade');
+      setTimeout(()=>{img.onload=done;img.src=s;if(img.complete)done();},120);
+      n.textContent=(i+1)+' / '+list.length;
+      th.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('on',j===i));
+      const on=th.children[i]; if(on) th.scrollLeft=on.offsetLeft-th.clientWidth/2+on.clientWidth/2;
+    }
+    function open(card){
+      list=card.dataset.gal.split('|');
+      th.innerHTML='';
+      list.forEach((s,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Image '+(j+1));b.innerHTML='<img src="'+s+'" alt="" loading="lazy">';b.onclick=()=>show(j);th.appendChild(b);});
+      document.getElementById('gal-title').innerHTML=card.querySelector('.desc').innerHTML;
+      document.getElementById('gal-client').textContent=card.querySelector('.client').textContent;
+      img.src=list[0];img.classList.remove('fade');
+      g.classList.add('open');show(0);
+    }
+    const close=()=>{g.classList.remove('open');img.removeAttribute('src');};
+    document.addEventListener('click',e=>{const c=e.target.closest('[data-gal]');if(!c)return;e.preventDefault();e.stopPropagation();open(c);},true);
+    document.getElementById('gal-prev').onclick=()=>show(i-1);
+    document.getElementById('gal-next').onclick=()=>show(i+1);
+    document.getElementById('gal-close').onclick=close;
+    document.getElementById('gal-stage').addEventListener('click',e=>{if(e.target.id==='gal-stage')close();});
+    addEventListener('keydown',e=>{if(!g.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1);});
+    let x0=null;
+    img.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+    img.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(i+(dx<0?1:-1));x0=null;});
+  })();
+</script>
+<script>
+  // ---------- work tabs: Commercial / Personal ----------
+  (function(){
+    const btns=document.querySelectorAll('.work-tabs .wt');
+    const views=document.querySelectorAll('.screen[data-page="work"] .work-view');
+    btns.forEach(b=>b.addEventListener('click',()=>{
+      btns.forEach(x=>{const on=x===b;x.classList.toggle('active',on);x.setAttribute('aria-selected',on);});
+      views.forEach(v=>v.classList.toggle('active',v.dataset.view===b.dataset.view));
+    }));
+  })();
+</script>
+<script>
+  // ---------- mobile collapsed nav ----------
+  (function(){
+    const mq=matchMedia('(max-width:760px)');
+    const chev='<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4.5l4 4 4-4"></path></svg>';
+    document.querySelectorAll('.screen .topnav').forEach(h=>{
+      const nav=h.querySelector('nav'); if(!nav) return;
+      const wrap=document.createElement('div'); wrap.className='nav-wrap';
+      nav.parentNode.insertBefore(wrap,nav); wrap.appendChild(nav);
+      const btn=document.createElement('button'); btn.type='button'; btn.className='mnav-btn'; btn.setAttribute('aria-label','Menu'); btn.setAttribute('aria-expanded','false'); btn.innerHTML=chev;
+      wrap.appendChild(btn);
+      const panel=document.createElement('div'); panel.className='mnav';
+      nav.querySelectorAll('a').forEach(a=>{const c=a.cloneNode(true); panel.appendChild(c);});
+      h.appendChild(panel);
+      const set=o=>{h.classList.toggle('nav-open',o);btn.setAttribute('aria-expanded',o);};
+      btn.addEventListener('click',e=>{e.stopPropagation();set(!h.classList.contains('nav-open'));});
+      nav.addEventListener('click',e=>{if(!mq.matches||document.documentElement.dataset.mnav==='bottom')return;e.preventDefault();e.stopPropagation();set(!h.classList.contains('nav-open'));},true);
+      panel.addEventListener('click',()=>set(false));
+    });
+    const closeAll=()=>document.querySelectorAll('.topnav.nav-open').forEach(h=>{h.classList.remove('nav-open');const b=h.querySelector('.mnav-btn');if(b)b.setAttribute('aria-expanded','false');});
+    document.addEventListener('click',e=>{if(!e.target.closest('.topnav'))closeAll();});
+    addEventListener('hashchange',closeAll);
+    document.querySelectorAll('.work-body,.case-body,.about-body,.contact-body,.client-reel').forEach(s=>s.addEventListener('scroll',closeAll,{passive:true}));
+    mq.addEventListener('change',closeAll);
+  })();
+</script>
+<script>
+  // ---------- mobile: clone SNS into footers; default nav = Menu ----------
+  (function(){
+    if(!document.documentElement.dataset.mnav) document.documentElement.dataset.mnav='menu';
+    document.querySelectorAll('.screen').forEach(s=>{
+      const soc=s.querySelector('.topnav .social'), f=s.querySelector('.work-foot,.about-foot,.contact-foot,.case-foot');
+      if(!soc||!f||f.querySelector('.foot-social')) return;
+      const c=soc.cloneNode(true); c.className='foot-social'; f.appendChild(c);
+    });
+  })();
+</script>
+<script>(function(){const q=new URLSearchParams(location.search);const v=q.get('nav')||'hl';document.documentElement.dataset.navstyle=v;if(q.get('mopen'))addEventListener('load',()=>setTimeout(()=>{const h=document.querySelector('.screen.active .topnav');if(h){h.classList.add('nav-open');const b=h.querySelector('.mnav-btn');b&&b.setAttribute('aria-expanded','true');}},900));})();</script>
 </body>
 </html>
