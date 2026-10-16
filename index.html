@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>oddball — AI-native creative studio</title>
+<title>oddball</title>
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="oddball" />
 <meta property="og:url" content="https://oddball.works/" />
-<meta property="og:title" content="oddball — AI-native creative studio" />
-<meta property="og:description" content="oddball은 브랜드의 상상을 현실로 만드는 AI 크리에이티브 스튜디오입니다." />
+<meta property="og:title" content="oddball" />
+<meta property="og:description" content="oddball is an AI creative studio building brand imagination into film, image and identity." />
 <meta property="og:image" content="https://oddball.works/img/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://oddball.works/img/og.png" />
-<meta name="description" content="oddball은 현실의 프레임 안에 비현실 한 컷으로 브랜드의 언어를 담아내는 AI-Native Creative Studio입니다." />
+<meta name="description" content="oddball is an AI creative studio building brand imagination into film, image and identity." />
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png" />
@@ -290,9 +290,9 @@
   .work-body::-webkit-scrollbar{width:0;height:0}
   .work-body{scrollbar-width:none}
   .work-intro{padding:72px 36px 0;display:flex;flex-direction:column;align-items:center}.work-intro .stmt-ko{margin:8px 0 0;text-align:center;font-family:'Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif;font-size:20px;line-height:1.6;color:rgba(255,255,255,.62);text-wrap:pretty;word-break:keep-all}
-  .work-intro .stmt{font-family:"athelas",serif;margin:0;text-align:center;font-size:clamp(28px,3vw,48px);line-height:1.14;letter-spacing:-.01em;color:#fff}
-  @font-face{font-family:"arthritis-brk";src:url("fonts/arthritis-brk.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
-  .work-intro .stmt .brand{font-family:"arthritis-brk","athelas","Pretendard Variable",serif;font-weight:400;font-style:normal;font-size:clamp(36px,3.6vw,56px)}
+  .work-intro .stmt{font-family:"athelas",serif;margin:0;text-align:center;font-size:clamp(32px,3vw,48px);line-height:1.14;letter-spacing:-.01em;color:#fff}
+  .work-intro .stmt .brand-img{position:relative;display:inline-block;height:.685em;aspect-ratio:2564/685;vertical-align:baseline;margin:0 .012em 0 .01em;background:#fff;-webkit-mask:url("img/oddball-wordmark.svg") center/contain no-repeat;mask:url("img/oddball-wordmark.svg") center/contain no-repeat}.work-intro .stmt .brand-txt{position:absolute;left:0;top:0;width:1px;height:1px;color:transparent;font-size:1px;line-height:1px;overflow:hidden;white-space:nowrap;opacity:0}.work-intro .stmt .brand-txt::selection{background:transparent;color:transparent}.work-intro .stmt .brand{position:relative}.work-intro .stmt .brand.sel::before{content:"";position:absolute;left:0;right:0;top:var(--st,0);height:var(--sh,100%);background:var(--accent);z-index:-1}.work-intro .stmt .ln{position:relative;z-index:0}.work-intro .stmt .brand.sel .brand-img{background:#0a0a0a}
+  .work-intro .stmt .brand{font-family:"arthritis-brk","athelas","Pretendard Variable",serif;font-weight:400;font-style:normal;font-size:clamp(40px,3.6vw,56px)}
   .work-intro .stmt .brand .dd{letter-spacing:.06em}
   .work-intro .stmt .brand{line-height:.9}
   .work-intro .stmt .ln{display:block;line-height:1.1;padding:0}
@@ -308,6 +308,15 @@
   .screen[data-page="work"] .case[data-ar="9/16"] .case-img{aspect-ratio:9/16}
   @media (max-width:1000px){.case-grid{column-count:2}}
   @media (max-width:640px){.case-grid{column-count:1}}
+  .case-grid.mz{column-count:auto !important;display:flex;gap:24px;align-items:flex-start}.mz-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column}
+  @media (min-width:1001px){.personal-grid{column-count:auto !important;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:24px;align-items:start}.personal-grid>.case:nth-child(1){grid-column:1;grid-row:1/span 2}.personal-grid>.case:nth-child(4){grid-column:2/4}}
+  .case-grid{padding-bottom:0 !important}.mz-col>.case:last-child,.personal-grid>.case:nth-child(n+3){margin-bottom:0 !important}.screen .work-foot{margin-top:80px !important;padding-top:0 !important}@media (max-width:1000px){.personal-grid>.case:nth-child(n+3){margin-bottom:52px !important}.personal-grid>.case:last-child{margin-bottom:0 !important}}
+  .screen[data-page="work"] .case .case-img.ld{aspect-ratio:auto !important;height:auto;background:transparent}.screen[data-page="work"] .case .case-img:not(.ld) .ph{position:absolute;inset:0;height:100%;object-fit:cover !important}.screen[data-page="work"] .case .case-img .ph.err{visibility:hidden}.screen[data-page="work"] .case .case-img .ph{height:auto;object-fit:initial !important}
+  .work-tabs{position:relative}.work-tabs .wt.active{text-decoration:none !important}.work-tabs .wt-bar{position:absolute;left:0;bottom:0;height:2px;background:var(--accent);transition:transform 420ms cubic-bezier(.6,0,.2,1),width 420ms cubic-bezier(.6,0,.2,1);pointer-events:none}
+  .screen[data-page="work"] .work-view.active.wv-in{animation:wvIn 520ms cubic-bezier(.2,.7,.2,1) both}@keyframes wvIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .gal-stage video{max-width:100%;max-height:100%;object-fit:contain;display:block}
+  
+  
   .screen[data-page="work"] .case-pair{display:contents}
   .screen[data-page="work"] .case .case-img{aspect-ratio:3/4;background:#151515}
   .screen[data-page="work"] .case .case-cap{
@@ -350,10 +359,10 @@
   .screen[data-page="contact"] .topnav .social a{color:#9a9a9a}
   .screen[data-page="about"] .topnav .social a:hover,
   .screen[data-page="contact"] .topnav .social a:hover{color:#0a0a0a;opacity:1}
-  .work-intro .stmt em{font-style:normal;color:var(--accent)}
+  .work-intro .stmt em{font-style:normal;color:#fff}
   .work-rule{background:none}
-  .work-tabs{display:flex;justify-content:center;gap:28px;margin:64px 36px 32px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
-  .work-tabs .wt{font-size:16px;color:rgba(255,255,255,.5);padding:0 0 6px;transition:color 240ms var(--ease)}
+  .work-tabs{display:flex;justify-content:center;gap:18px;margin:72px 36px 32px;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif}
+  .work-tabs .wt{text-transform:uppercase;letter-spacing:.04em;font-size:16px;color:rgba(255,255,255,.5);padding:0 0 6px;transition:color 240ms var(--ease)}
   .work-tabs .wt{display:inline-flex;flex-direction:column;align-items:center}
   .work-tabs .wt::after{content:attr(data-label);font-weight:600;height:0;overflow:hidden;visibility:hidden;pointer-events:none}
   .work-tabs .wt:hover{color:#fff}
@@ -498,8 +507,10 @@
     .foot-social a{display:grid;place-items:center;width:44px;height:44px;color:inherit;transition:color 200ms var(--ease)}
     .foot-social a:hover{color:var(--accent)}
     .foot-social svg{width:20px;height:20px}
+    .foot-social svg:not(.th){width:24px;height:24px}
     .about-foot .foot-social,.contact-foot .foot-social{color:#8a8a8a}
     .work-foot .foot-social,.case-foot .foot-social{color:rgba(255,255,255,.6)}
+    .work-foot .foot-social,.case-foot .foot-social{color:#858585 !important}.foot-social svg:not(.th) *{stroke-width:1.9}
   }
   .about-foot,.contact-foot,.work-foot{height:40px !important;padding:0 !important;margin-top:72px !important;display:flex !important;align-items:center;justify-content:center;font-family:'Inter','Pretendard Variable','Pretendard',ui-sans-serif,system-ui,sans-serif !important;font-size:14px !important;line-height:1 !important}
   .work-foot{color:rgba(255,255,255,.5);text-transform:none;letter-spacing:.01em;margin-bottom:0}
@@ -643,7 +654,9 @@
   .foot-in .biz > * + *::before{content:none !important}
   .foot-in .biz > :not(:last-child)::after{content:"";display:inline-block;width:1px;height:10px;background:currentColor;opacity:.35;margin:0 12px;flex:none}
   .foot-in .biz > *{white-space:nowrap}
+  .foot-in .biz > :not(:last-child)::after{margin:0 4px !important}
   @media (max-width:760px){.foot-in .biz > *{white-space:normal}}
+  @media (max-width:760px){.foot-in .biz > *{display:inline}.foot-in .biz > :not(:last-child)::after{vertical-align:-1px}}
   .inq{gap:28px !important;margin-top:36px !important}
   .inq .f{gap:4px !important}
   .inq .f span em{font-size:13px;color:#8a8a8a}
@@ -654,6 +667,7 @@
   .rb-o:hover{border-color:#8fcbee}
   .rb-o:has(input:checked){background:var(--accent);border-color:var(--accent)}
   .rb-o:has(input:focus-visible){box-shadow:0 0 0 3px var(--accent)}
+  .rb-o.on{background:var(--accent) !important;border-color:var(--accent) !important}.rb-o input{pointer-events:none}
   .inq-bottom{display:flex;align-items:flex-start;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding-top:4px}
   .inq-bottom .agree{flex:1 1 260px;min-width:0;padding-top:12px !important}
   .inq-bottom .inq-act{margin:0 !important;flex:none}
@@ -682,9 +696,12 @@
   .gal-close,.pop-close{display:grid;place-items:center;width:44px;height:44px;margin:-12px -12px -12px 0;padding:0;background:none;border:0;font-size:0;letter-spacing:0;color:#fff;cursor:pointer}
   .gal-close svg,.pop-close svg{width:20px;height:20px;display:block}
   .gal-bar .gr{align-items:center !important}
+  @media (min-width:761px){.case-grid,.case-body,.about-body,.contact-body,.work-empty{padding-left:80px !important;padding-right:80px !important}.work-intro{padding-left:80px;padding-right:80px}.screen[data-page="work"] .work-list-wrap{padding-left:80px;padding-right:80px}.work-tabs{margin-left:80px;margin-right:80px}}
+  .pop-bar .pn,.gal-bar #gal-title{font-size:18px;font-weight:600;line-height:1.35}.pop-bar .pc,.gal-bar .gc{font-size:15px;font-weight:400;line-height:1.5}.pop-bar .pt,.gal-bar .gt{align-items:baseline;column-gap:14px}
 
   @media (max-width:760px){html[data-mnav="menu"] .topnav.nav-open .mnav-btn::before{content:'' !important;display:block;width:20px;height:20px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M5 5l14 14M19 5L5 19'/%3E%3C/svg%3E") center/contain no-repeat}
   html[data-mnav="menu"] .topnav.nav-open .mnav-btn{display:grid;place-items:center;min-width:44px;min-height:44px}}
+  @media (max-width:760px){html[data-mnav="menu"] .topnav:not(.nav-open) .mnav-btn::before{content:'' !important;display:block;width:22px;height:22px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 7h16M4 12h16M4 17h16'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 7h16M4 12h16M4 17h16'/%3E%3C/svg%3E") center/contain no-repeat}html[data-mnav="menu"] .mnav-btn{display:grid;place-items:center;min-width:44px;min-height:44px;font-size:0 !important}}
 
   .inq textarea{line-height:1.5 !important;min-height:calc(1.5em + 23px) !important;box-sizing:border-box}
 
@@ -712,6 +729,8 @@
   .inq-bottom .inq-act,.inq-bottom .inq-btn{width:100% !important;justify-content:center}
 
   @media (max-width:760px){.screen[data-page="work"] .case-grid{padding-bottom:0 !important}.screen[data-page="work"] .work-foot{margin-top:0 !important}}
+
+  @media (min-width:761px){.screen .topnav nav,.screen .topnav nav a{font-size:16px !important}}.work-tabs .wt{font-size:14px !important;padding-bottom:1px !important}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
@@ -726,12 +745,12 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
+      <a href="https://www.threads.net/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
   <div class="work-body">
     <div class="work-intro">
-      <p class="stmt"><span class="ln"><span class="brand">od<span class="dd">d</span><span class="db">b</span>all</span> is an AI creative studio building</span><span class="ln">brand imagination into <em>film, image and identity.</em></span></p>
+      <p class="stmt"><span class="ln"><span class="brand"><span class="brand-img" role="img" aria-label="oddball"><span class="brand-txt">oddball</span></span></span> is an AI creative studio building</span><span class="ln">brand imagination into <em>film, image and identity.</em></span></p>
       <p class="stmt-ko">oddball은 브랜드의 상상을 현실로 만드는 AI 크리에이티브 스튜디오입니다.</p>
     </div>
     <div class="work-tabs" role="tablist">
@@ -762,7 +781,7 @@
               <span class="client">Dauning</span>
             </div>
           </a>
-          <a class="case case-link" href="#work" data-pop="i4PkIvPqXqg:v" data-ar="3/4">
+          <a class="case case-link" href="#work" data-pop="7zBuspNDk5g:v" data-ar="3/4">
             <div class="case-img"><img class="ph" src="img/sweetch-01.jpg" alt="sweetch" loading="lazy" /></div>
             <div class="case-cap">
               <span class="desc">Glossy Black Polka Dot — Product Film</span>
@@ -790,7 +809,7 @@
               <span class="client">RARERAW</span>
             </div>
           </a>
-          <a class="case case-link" href="#work" data-gal="img/deliel-sns-01.jpg|img/deliel-sns-02.jpg|img/deliel-sns-03.jpg|img/deliel-sns-04.jpg|img/deliel-sns-05.jpg" data-ar="1/1">
+          <a class="case case-link" href="#work" data-gal="img/deliel-sns-01.jpg|img/deliel-sns-02.jpg|img/deliel-sns-03.jpg|img/deliel-sns-04.jpg|img/deliel-sns-05.jpg|img/deliel-sns-06.mp4" data-ar="1/1">
             <div class="case-img"><img class="ph" src="img/deliel-sns-01.jpg" alt="Deliel" loading="lazy" /></div>
             <div class="case-cap">
               <span class="desc">Protein Shake — Social Campaign</span>
@@ -802,7 +821,7 @@
     </div>
     <div class="work-view" data-view="personal">
       <div class="client-reel">
-        <div class="case-grid personal-grid"><a class="case case-link" href="#work" data-pop="Hzwv8wAit20:v" data-ar="9/16"><div class="case-img"><img class="ph" src="img/greyman.jpg" alt="oddball — GREY MAN" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">GREY MAN</span><span class="client">개인 작업</span></div></a><a class="case case-link" href="#work" data-pop="s_M4h4_nQUM:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/berex-pebble2.jpg" alt="oddball — 코웨이 비렉스 페블체어2" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">코웨이 비렉스 페블체어2</span><span class="client">공모전 제출</span></div></a><a class="case case-link" href="#work" data-pop="RrYKQ16UnkE:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/mujinjang.jpg" alt="oddball — 무진장" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">무진장</span><span class="client">공모전 제출</span></div></a><a class="case case-link" href="#work" data-pop="oqGtWeH4WTk:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/personal-01.jpg" alt="oddball — ERROR" loading="lazy" style="object-fit:cover;object-position:50% 40%" /></div><div class="case-cap"><span class="desc">ERROR</span><span class="client">개인 작업</span></div></a></div>
+        <div class="case-grid personal-grid"><a class="case case-link" href="#work" data-pop="Hzwv8wAit20:v" data-ar="9/16"><div class="case-img"><img class="ph" src="img/greyman.jpg" alt="oddball — GREY MAN" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">GREY MAN</span><span class="client">개인 작업</span></div></a><a class="case case-link" href="#work" data-pop="s_M4h4_nQUM:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/berex-pebble2.jpg" alt="oddball — Coway BEREX Pebble Chair2" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">Coway BEREX Pebble Chair2</span><span class="client">코웨이 비렉스 AI 영상 광고·숏폼 공모전 출품작</span></div></a><a class="case case-link" href="#work" data-pop="RrYKQ16UnkE:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/mujinjang.jpg" alt="oddball — 무진장" loading="lazy" style="object-fit:cover" /></div><div class="case-cap"><span class="desc">무진장</span><span class="client">무진장 성공 기원 AI 영상 광고제 출품작</span></div></a><a class="case case-link" href="#work" data-pop="oqGtWeH4WTk:h" data-ar="16/9"><div class="case-img"><img class="ph" src="img/personal-01.jpg" alt="oddball — ERROR" loading="lazy" style="object-fit:cover;object-position:50% 40%" /></div><div class="case-cap"><span class="desc">ERROR</span><span class="client">개인 작업</span></div></a></div>
         <p class="work-empty">Personal work — coming soon.</p>
       </div>
     </div>
@@ -819,14 +838,14 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
+      <a href="https://www.threads.net/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
   <div class="about-body">
     <div class="about-row">
     <div class="about-cols">
       <h2>About</h2>
-      <p>oddball은 ‘현실의 프레임 안에 비현실 한 컷’으로 브랜드의 언어를 보다 창의적이고, 정교하게 담아내는 AI-Native Creative Studio입니다. SNS 숏폼, 브랜드 캠페인, 광고까지 다양한 종류의 콘텐츠를 기획 및 제작하며, 브랜드가 전달하고자 하는 메시지를 더 섬세하고 자연스럽게 전달합니다.</p>
+      <p>oddball은 ‘현실의 프레임 안에 비현실 한 컷’으로 브랜드의 언어를 보다 창의적이고, <br />정교하게 담아내는 AI-Native Creative Studio입니다. <br />SNS 숏폼, 브랜드 캠페인, 광고까지 다양한 종류의 콘텐츠를 기획 및 제작하며, <br />브랜드가 전달하고자 하는 메시지를 더 섬세하고 자연스럽게 전달합니다.</p>
       <p class="en">oddball is an AI-native creative studio that captures a brand’s voice with greater creativity and precision — framing a single surreal moment within the real.<br />We plan and produce a wide range of content, from short-form social media to brand campaigns and advertising, delivering each brand’s intended message with nuance and authenticity.</p>
     </div>
     <figure class="about-fig"><img src="img/about-1111.jpg" alt="oddball — 11:11" /></figure>
@@ -846,7 +865,7 @@
     </nav>
     <span class="social">
       <a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-      <a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
+      <a href="https://www.threads.net/@we.are.oddball" target="_blank" rel="noopener" aria-label="Threads"><svg class="th" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"></path></svg></a>
     </span>
   </header>
   <div class="contact-body">
@@ -854,7 +873,7 @@
       <div>
         <h2>Project Inquiries</h2>
         <div class="blk">
-          <p>AI 콘텐츠 제작 의뢰는 아래 양식을 작성해 주세요. 영업일 기준 2일 내로 회신드립니다.</p><p class="inq-en">To commission AI content, please fill out the form below. We will get back to you within 2 business days.</p>
+          <p>AI 콘텐츠 제작을 원하신다면 아래 양식을 작성해 주세요. 영업일 기준 2일 내로 답변드립니다.</p><p class="inq-en">To commission AI content, please fill out the form below. We will get back to you within 2 business days.</p>
         </div>
         <form class="inq" id="inq" novalidate>
           <label class="f"><span>회사명</span><input name="회사명" type="text" maxlength="100" autocomplete="organization" required placeholder="회사 또는 브랜드명" /></label>
@@ -873,7 +892,7 @@
           <h5>Social</h5>
           <ul>
             <li><a href="https://www.instagram.com/we.are.oddball" target="_blank" rel="noopener">Instagram<span class="soc-sep" aria-hidden="true"></span>@we.are.oddball</a></li>
-            <li><a href="https://www.threads.com/@we.are.oddball" target="_blank" rel="noopener">Threads<span class="soc-sep" aria-hidden="true"></span>@we.are.oddball</a></li>
+            <li><a href="https://www.threads.net/@we.are.oddball" target="_blank" rel="noopener">Threads<span class="soc-sep" aria-hidden="true"></span>@we.are.oddball</a></li>
           </ul>
         </div>
         <div class="blk">
@@ -1057,7 +1076,7 @@
       try{
         const r=await fetch('https://formsubmit.co/ajax/contact@oddball.works',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
         const j=await r.json().catch(()=>({}));
-        if(!r.ok||j.success==='false'||j.success===false) throw 0;
+        if(!r.ok||j.success==='false'||j.success===false){if(j.message&&/activat/i.test(j.message)){msg.textContent='문의 양식 활성화가 필요합니다. 관리자 메일함을 확인해 주세요.';console.warn('FormSubmit:',j.message);return;}console.warn('FormSubmit:',r.status,j.message);throw 0;}
         f.reset();msg.textContent='';window.showSentModal&&window.showSentModal();
       }catch(_){
         msg.innerHTML='전송에 실패했습니다. <a href="mailto:contact@oddball.works">contact@oddball.works</a>로 직접 보내주세요.';
@@ -1108,7 +1127,7 @@
       img.classList.add('fade');
       const s=list[i];
       const done=()=>img.classList.remove('fade');
-      setTimeout(()=>{img.onload=done;img.src=s;if(img.complete)done();},120);
+      const isV=/\.mp4$/i.test(s);let v=document.getElementById('gal-vid');if(isV&&!v){v=document.createElement('video');v.id='gal-vid';v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.setAttribute('playsinline','');img.after(v);}setTimeout(()=>{if(isV){img.style.display='none';v.style.display='';v.src=s;v.play().catch(()=>{});done();}else{if(v){v.pause();v.removeAttribute('src');v.style.display='none';}img.style.display='';img.onload=done;img.src=s;if(img.complete)done();}},120);
       n.textContent=(i+1)+' / '+list.length;
       th.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('on',j===i));
       const on=th.children[i]; if(on) th.scrollLeft=on.offsetLeft-th.clientWidth/2+on.clientWidth/2;
@@ -1116,13 +1135,13 @@
     function open(card){
       list=card.dataset.gal.split('|');
       th.innerHTML='';
-      list.forEach((s,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Image '+(j+1));b.innerHTML='<img src="'+s+'" alt="" loading="lazy">';b.onclick=()=>show(j);th.appendChild(b);});
+      list.forEach((s,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Image '+(j+1));b.innerHTML=/\.mp4$/i.test(s)?'<video src="'+s+'#t=0.1" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>':'<img src="'+s+'" alt="" loading="lazy">';b.onclick=()=>show(j);th.appendChild(b);});
       document.getElementById('gal-title').innerHTML=card.querySelector('.desc').innerHTML;
       document.getElementById('gal-client').textContent=card.querySelector('.client').textContent;
       img.src=list[0];img.classList.remove('fade');
       g.classList.add('open');show(0);
     }
-    const close=()=>{g.classList.remove('open');img.removeAttribute('src');};
+    const close=()=>{g.classList.remove('open');img.removeAttribute('src');const v=document.getElementById('gal-vid');if(v){v.pause();v.removeAttribute('src');}};
     document.addEventListener('click',e=>{const c=e.target.closest('[data-gal]');if(!c)return;e.preventDefault();e.stopPropagation();open(c);},true);
     document.getElementById('gal-prev').onclick=()=>show(i-1);
     document.getElementById('gal-next').onclick=()=>show(i+1);
@@ -1183,5 +1202,10 @@
   })();
 </script>
 <script>(function(){const q=new URLSearchParams(location.search);const v=q.get('nav')||'hl';document.documentElement.dataset.navstyle=v;if(q.get('mopen'))addEventListener('load',()=>setTimeout(()=>{const h=document.querySelector('.screen.active .topnav');if(h){h.classList.add('nav-open');const b=h.querySelector('.mnav-btn');b&&b.setAttribute('aria-expanded','true');}},900));})();</script>
+<script>(function(){document.querySelectorAll('.rb-opts').forEach(function(g){var sync=function(){g.querySelectorAll('.rb-o').forEach(function(l){var i=l.querySelector('input');l.classList.toggle('on',!!(i&&i.checked))})};g.querySelectorAll('.rb-o').forEach(function(l){l.addEventListener('click',function(e){var i=l.querySelector('input');if(!i||e.target===i)return;e.preventDefault();if(!i.checked){i.checked=true;i.dispatchEvent(new Event('change',{bubbles:true}))}sync()})});g.addEventListener('change',sync);var f=g.closest('form');if(f)f.addEventListener('reset',function(){setTimeout(sync,0)});sync()})})();</script>
+<script>(function(){var g=document.querySelector('.work-view[data-view="client"] .case-grid');if(!g)return;var cards=[].slice.call(g.querySelectorAll(':scope>.case'));[].slice.call(g.querySelectorAll('img')).forEach(function(im){im.loading='eager';if(!im.complete)im.addEventListener('load',function(){later()})});var last='';function k(){var w=innerWidth;return w>1000?3:w>640?2:1}function flat(){g.classList.remove('mz');cards.forEach(function(c){g.appendChild(c)});[].slice.call(g.querySelectorAll('.mz-col')).forEach(function(c){c.remove()})}function run(){if(!g.offsetParent)return;var n=k();flat();if(n<2){last='';return}var h=cards.map(function(c){return c.getBoundingClientRect().height+52});if(!h[0])return;var best=null,bs=1e9,N=cards.length,a=new Array(N);(function rec(i){if(i===N){var s=new Array(n).fill(0);for(var j=0;j<N;j++)s[a[j]]+=h[j];var sp=Math.max.apply(0,s)-Math.min.apply(0,s);var pen=0;for(j=0;j<N;j++)pen+=Math.abs(a[j]-j%n);sp+=pen*.01;if(sp<bs){bs=sp;best=a.slice()}return}for(var c=0;c<n;c++){a[i]=c;rec(i+1)}})(0);var cols=[];for(var c=0;c<n;c++){var d=document.createElement('div');d.className='mz-col';cols.push(d);g.appendChild(d)}cards.forEach(function(el,i){cols[best[i]].appendChild(el)});g.classList.add('mz')}var t;function later(){clearTimeout(t);t=setTimeout(run,80)}addEventListener('resize',later);addEventListener('hashchange',later);addEventListener('load',later);document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.work-tabs'))later()});if(document.fonts)document.fonts.ready.then(later);later()})();</script>
+<script>(function(){var t=document.querySelector('.work-tabs');if(!t)return;var bar=document.createElement('i');bar.className='wt-bar';t.appendChild(bar);function place(){var a=t.querySelector('.wt.active');if(!a||!t.offsetParent)return;var r=a.getBoundingClientRect(),p=t.getBoundingClientRect();bar.style.width=r.width+'px';bar.style.transform='translateX('+(r.left-p.left)+'px)'}t.addEventListener('click',function(e){var b=e.target.closest('.wt');if(!b)return;requestAnimationFrame(function(){place();var v=document.querySelector('.screen[data-page="work"] .work-view.active');if(v){v.classList.remove('wv-in');void v.offsetWidth;v.classList.add('wv-in')}})});addEventListener('resize',place);addEventListener('hashchange',function(){setTimeout(place,60)});if(document.fonts)document.fonts.ready.then(place);bar.style.transition='none';place();setTimeout(function(){bar.style.transition=''},50);setTimeout(place,300)})();</script>
+<script>(function(){var b=document.querySelector('.work-intro .stmt .brand');if(!b)return;document.addEventListener('selectionchange',function(){var s=getSelection();var on=!!(s&&s.rangeCount&&!s.isCollapsed&&s.containsNode(b,true));if(on){var n=b.nextSibling;if(n&&n.nodeType===3){var r=document.createRange();r.setStart(n,0);r.setEnd(n,Math.min(3,n.length));var a=r.getBoundingClientRect(),c=b.getBoundingClientRect();var ln=b.closest('.ln')||b.parentElement,LH=parseFloat(getComputedStyle(ln).lineHeight)||a.height,hl=(LH-a.height)/2;var lr=ln.getBoundingClientRect();if(lr.height<LH*1.6){b.style.setProperty('--st',(lr.top-c.top)+'px');b.style.setProperty('--sh',lr.height+'px')}else{b.style.setProperty('--st',(a.top-hl-c.top)+'px');b.style.setProperty('--sh',LH+'px')}}}b.classList.toggle('sel',on)})})();</script>
+<script>(function(){document.querySelectorAll('.screen[data-page="work"] .case-img .ph').forEach(function(i){var box=i.parentElement;function ok(){if(i.naturalWidth){box.classList.add('ld');dispatchEvent(new Event('resize'))}}function bad(){i.classList.add('err')}if(i.complete){i.naturalWidth?ok():bad()}else{i.addEventListener('load',ok);i.addEventListener('error',bad)}})})();</script>
 </body>
 </html>
